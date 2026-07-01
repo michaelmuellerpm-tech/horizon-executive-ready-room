@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Klaritee Executive Horizon v0.9.4-alpha</title>
+<style>
+:root{
+  --bg:#03070d; --bg2:#07111d; --panel:#0b1725; --panel2:#102033; --line:#1f405d;
+  --text:#f5fbff; --muted:#93a7bb; --blue:#4fb7ff; --orange:#ff6b32; --orange2:#ff9b43;
+  --green:#48d987; --yellow:#ffbd32; --red:#ff534f; --purple:#b889ff; --cyan:#4de6ff;
+  --radius:16px;
+}
+*{box-sizing:border-box} html,body{min-height:100%;} body{margin:0;background:radial-gradient(circle at 58% 0%,rgba(39,134,205,.22),transparent 32%),linear-gradient(180deg,#06101b,#02050a 70%);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);overflow-x:hidden}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}.sidebar{background:rgba(3,8,14,.86);border-right:1px solid rgba(79,183,255,.17);padding:22px 14px;display:flex;flex-direction:column;gap:18px}.brand{display:flex;gap:12px;align-items:center}.brand-mark{width:34px;height:34px;border:1px solid var(--blue);border-radius:10px;display:grid;place-items:center;color:var(--orange);box-shadow:0 0 18px rgba(79,183,255,.22)}.brand-title{font-size:18px;letter-spacing:7px;font-weight:950}.brand-sub{font-size:10px;letter-spacing:1.7px;color:#c8d6e4;text-transform:uppercase;margin-top:4px}.nav-title{font-size:10px;color:var(--blue);letter-spacing:4px;font-weight:950;margin-top:6px}.nav{display:grid;gap:6px}.nav-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;color:#d8e6f4;font-size:13px}.nav-item.active{background:linear-gradient(90deg,rgba(255,107,50,.26),rgba(255,107,50,.06));border:1px solid rgba(255,107,50,.48)}.nav-item span{font-weight:950}.quote{margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;color:#b9c7d6;font-size:12px;line-height:1.45}.quote strong{display:block;color:white;margin-bottom:8px}.shell{padding:24px 24px 18px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:16px}.title h1{margin:0;font-size:34px;letter-spacing:-1px}.title p{margin:7px 0 0;color:#c6d1df;font-size:15px}.actions{display:flex;gap:10px;align-items:center}.pill-btn{border:1px solid rgba(79,183,255,.28);background:rgba(14,28,44,.9);color:#fff;border-radius:999px;padding:9px 14px;font-weight:850;cursor:pointer}.pill-btn.active{background:var(--orange);border-color:var(--orange)}.updated{font-size:12px;text-align:right;color:#c6d1df;margin-top:4px}.updated .dot{display:inline-block;width:8px;height:8px;background:var(--green);border-radius:50%;margin-left:6px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px}.main{display:grid;gap:14px}.right{display:grid;gap:12px;align-content:start}.top-cards{display:grid;grid-template-columns:1.05fr .85fr 1.15fr;gap:14px}.card{background:linear-gradient(180deg,rgba(14,29,45,.94),rgba(8,17,28,.94));border:1px solid rgba(79,183,255,.24);border-radius:var(--radius);padding:16px;box-shadow:inset 0 0 35px rgba(79,183,255,.025)}.card-title{color:var(--blue);letter-spacing:4px;font-size:12px;font-weight:950;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}.icon{color:var(--orange);font-size:18px}.how-grid{display:grid;grid-template-columns:145px 1fr;gap:14px;align-items:center}.score{font-size:78px;line-height:.9;color:var(--orange);font-weight:950;text-shadow:0 0 28px rgba(255,107,50,.25)}.score-caption{font-weight:950;margin-top:8px}.trend{display:inline-flex;margin-top:10px;color:var(--green);border:1px solid rgba(72,217,135,.25);background:rgba(72,217,135,.08);border-radius:999px;padding:6px 9px;font-weight:950;font-size:12px}.mini-chart{height:118px;border-left:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16);position:relative}.mini-chart svg{width:100%;height:100%;overflow:visible}.mini-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:6px}.help-hurt{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.08);padding-top:11px;font-size:13px;line-height:1.7}.help{color:var(--green);font-weight:950}.hurt{color:var(--orange);font-weight:950}.stand h2{font-size:25px;margin:0 0 18px}.stand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}.stand-stat{border-left:1px solid rgba(255,255,255,.12);padding-left:12px}.stand-stat:first-child{border-left:0;padding-left:0}.stand-stat small{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}.stand-stat strong{font-size:20px;color:var(--orange)}.stand-stat .green{color:var(--green)}.belief{border-top:1px solid rgba(255,255,255,.09);padding-top:14px;color:#aac7e8;font-size:14px}.story-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.story-col{border-left:1px solid rgba(255,255,255,.08);padding-left:12px}.story-col:first-child{border-left:0;padding-left:0}.story-col h4{margin:0 0 10px;color:var(--green);font-size:12px}.story-col:nth-child(2) h4,.story-col:nth-child(3) h4{color:var(--orange)}.story-col ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:12px;color:#dce8f4}.story-col li::before{content:'✓';color:var(--green);margin-right:7px}.story-col:nth-child(2) li::before{content:'○';color:var(--orange)}.outcome-strip{margin-top:13px;border:1px solid rgba(79,183,255,.18);border-radius:12px;padding:12px;background:rgba(79,183,255,.045);font-size:13px}.outcome-strip strong{color:var(--orange);font-size:20px}.outcome-strip .to{color:var(--green)}.journey{padding:18px}.journey-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.journey-sub{color:#a8b9cc;font-size:13px}.journey-row{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:14px;margin-top:20px;padding:16px 0 4px}.journey-row:before{content:"";position:absolute;left:2%;right:2%;top:76px;border-top:2px dashed rgba(158,184,211,.34)}.node{position:relative;z-index:2;background:linear-gradient(180deg,rgba(30,50,72,.88),rgba(14,26,40,.88));border:1px solid rgba(79,183,255,.18);border-radius:14px;padding:14px 12px;min-height:155px;text-align:center}.node.current{border-color:rgba(255,107,50,.78);box-shadow:0 0 35px rgba(255,107,50,.23),inset 0 0 0 1px rgba(255,107,50,.18);transform:translateY(-10px)}.node.future{background:rgba(13,25,38,.4);border-style:dashed}.symbol{font-size:28px;margin-bottom:8px}.node h4{margin:0;font-size:13px}.node p{margin:10px 0;color:#c7d5e3;font-size:12px;line-height:1.4}.state{display:inline-block;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:950;color:var(--green);background:rgba(72,217,135,.1)}.node.current .state{color:var(--orange);background:rgba(255,107,50,.12)}.node.future .state{color:var(--yellow);background:rgba(255,189,50,.1)}.lower-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}.attention{border-color:rgba(255,189,50,.36)}.belief-card{border-color:rgba(79,183,255,.24)}.next{border-color:rgba(72,217,135,.3)}.sure{border-color:rgba(79,183,255,.24)}.big-shift{font-size:28px;font-weight:950;color:var(--orange)}.big-shift span{color:var(--green)}.confidence-num{font-size:42px;color:var(--blue);font-weight:950}.donut{width:116px;height:116px;border-radius:50%;background:conic-gradient(var(--blue) 0 245deg,rgba(255,255,255,.13) 245deg 360deg);position:relative;margin:8px auto 0}.donut:after{content:"";position:absolute;inset:24px;background:var(--panel);border-radius:50%}.rail-list{display:grid;gap:12px}.risk-item,.wait-item,.decision{display:grid;grid-template-columns:12px 1fr auto;gap:10px;align-items:start;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:12px;font-size:13px}.risk-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);margin-top:6px}.tag{font-size:11px;border-radius:999px;padding:5px 8px;font-weight:950;background:rgba(255,107,50,.15);color:#ffb086}.tag.med{background:rgba(255,189,50,.13);color:var(--yellow)}.section-link{text-align:center;color:#8ccaff;margin-top:12px;font-size:13px}.question{display:grid;grid-template-columns:1fr auto 220px;gap:16px;align-items:center;background:linear-gradient(180deg,rgba(14,32,50,.9),rgba(8,18,29,.9));border:1px solid rgba(79,183,255,.22);border-radius:14px;padding:14px 18px}.question small{color:var(--blue);letter-spacing:2px;text-transform:uppercase}.question strong{display:block;font-size:18px;margin-top:5px}.rec{color:var(--orange);font-weight:850}.mode-wall .layout{grid-template-columns:minmax(0,1fr) 340px}.mode-wall .top-cards{grid-template-columns:1fr .9fr 1.15fr}.mode-wall .shell{padding:20px}.mode-wall .title h1{font-size:32px}.mode-presentation .sidebar{display:none}.mode-presentation .app{grid-template-columns:1fr}.mode-presentation .top{margin-bottom:14px}.mode-presentation .actions{position:fixed;top:14px;right:16px;z-index:20;opacity:.28}.mode-presentation .actions:hover{opacity:1}.mode-presentation .layout{grid-template-columns:1fr}.mode-presentation .right{display:none}.mode-presentation .top-cards{grid-template-columns:1fr 1fr 1.2fr}.mode-presentation .shell{padding:18px}.mode-presentation .journey-row{grid-template-columns:repeat(7,1fr)}@media(max-width:1300px){.layout,.mode-wall .layout{grid-template-columns:1fr}.right{grid-template-columns:1fr 1fr}.top-cards{grid-template-columns:1fr}.lower-grid{grid-template-columns:1fr 1fr}.journey-row{overflow-x:auto;grid-template-columns:repeat(7,180px)}}@media(max-width:800px){.app{grid-template-columns:1fr}.sidebar{display:none}.shell{padding:16px}.top{display:block}.actions{margin-top:12px}.layout{grid-template-columns:1fr}.right,.lower-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}.story-grid{grid-template-columns:1fr}.stand-grid{grid-template-columns:1fr}.journey-row{grid-template-columns:1fr;overflow:visible}.journey-row:before{display:none}.question{grid-template-columns:1fr}.title h1{font-size:32px}}
+
+
+/* KLARITEE v0.9.4-alpha — Fit-to-Screen Executive Delight Pass */
+@media (min-width: 1301px) {
+  html, body { height: 100%; overflow: hidden; }
+  .app { height: 100vh; min-height: 0; grid-template-columns: 210px 1fr; }
+  .sidebar { padding: 16px 12px; gap: 12px; overflow: hidden; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 8px; }
+  .brand-title { font-size: 16px; letter-spacing: 6px; }
+  .brand-sub { font-size: 8px; }
+  .nav-title { font-size: 9px; margin-top: 2px; }
+  .nav { gap: 3px; }
+  .nav-item { padding: 8px 10px; font-size: 12px; border-radius: 10px; }
+  .quote { font-size: 10.5px; line-height: 1.35; padding-top: 10px; }
+
+  .shell { height: 100vh; overflow: hidden; padding: 14px 16px 12px; }
+  .top { margin-bottom: 9px; align-items: center; }
+  .title h1 { font-size: 30px; }
+  .title p { margin-top: 4px; font-size: 13px; }
+  .pill-btn { padding: 7px 12px; font-size: 12px; }
+  .updated { font-size: 10.5px; line-height: 1.25; }
+
+  .layout { height: calc(100vh - 76px); grid-template-columns: minmax(0, 1fr) 292px; gap: 10px; }
+  .main { gap: 10px; grid-template-rows: 205px 210px 164px 60px; min-height: 0; }
+  .right { gap: 9px; min-height: 0; overflow: hidden; grid-template-rows: 1fr 1fr 1fr; }
+  .card { padding: 12px; border-radius: 13px; }
+  .card-title { font-size: 10px; letter-spacing: 3px; margin-bottom: 9px; }
+
+  .top-cards { grid-template-columns: .92fr .78fr 1.08fr; gap: 10px; min-height: 0; }
+  .how-grid { grid-template-columns: 112px 1fr; gap: 10px; }
+  .score { font-size: 58px; }
+  .score-caption { font-size: 13px; margin-top: 6px; }
+  .trend { padding: 4px 7px; font-size: 10px; margin-top: 7px; }
+  .mini-chart { height: 82px; }
+  .mini-labels { font-size: 9px; }
+  .help-hurt { font-size: 11px; line-height: 1.5; padding-top: 8px; }
+  .stand h2 { font-size: 20px; margin-bottom: 11px; }
+  .stand-grid { gap: 7px; margin-bottom: 10px; }
+  .stand-stat { padding-left: 8px; }
+  .stand-stat small { font-size: 8.5px; margin-bottom: 5px; }
+  .stand-stat strong { font-size: 17px; }
+  .belief { padding-top: 9px; font-size: 12px; }
+  .story-grid { gap: 8px; }
+  .story-col { padding-left: 8px; }
+  .story-col h4 { font-size: 10px; margin-bottom: 6px; }
+  .story-col ul { gap: 4px; font-size: 10.5px; }
+  .story-col p { margin: 0 0 5px; font-size: 11px; line-height: 1.3; }
+  .outcome-strip { margin-top: 8px; padding: 8px; font-size: 11px; }
+  .outcome-strip strong { font-size: 16px; }
+
+  .journey { padding: 12px; overflow: hidden; }
+  .journey-head { margin-bottom: 8px; }
+  .journey-sub { font-size: 11px; }
+  .journey-row { gap: 9px; margin-top: 10px; padding: 10px 0 0; }
+  .journey-row:before { top: 58px; }
+  .node { min-height: 126px; padding: 10px 8px; border-radius: 12px; }
+  .node.current { transform: translateY(-4px); }
+  .symbol { font-size: 22px; margin-bottom: 5px; }
+  .node h4 { font-size: 11px; line-height: 1.18; }
+  .node p { margin: 7px 0; font-size: 10.5px; line-height: 1.28; }
+  .state { font-size: 8.5px; padding: 3px 7px; }
+
+  .lower-grid { grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; min-height: 0; }
+  .lower-grid .card { overflow: hidden; }
+  .lower-grid h3 { font-size: 13px; margin: 0 0 9px; }
+  .lower-grid p { font-size: 11px; line-height: 1.35; margin: 5px 0; }
+  .big-shift { font-size: 22px; }
+  .confidence-num { font-size: 34px; }
+  .donut { width: 88px; height: 88px; margin-top: 2px; }
+  .donut:after { inset: 20px; }
+
+  .question { padding: 9px 14px; grid-template-columns: 1fr auto 190px; min-height: 0; }
+  .question small { font-size: 9px; }
+  .question strong { font-size: 14px; margin-top: 3px; }
+  .rec { font-size: 12px; }
+
+  .risk-item, .wait-item, .decision { gap: 8px; padding-bottom: 8px; font-size: 11.5px; }
+  .tag { font-size: 9px; padding: 4px 7px; }
+  .section-link { margin-top: 8px; font-size: 11px; }
+  .right .card { min-height: 0; overflow: hidden; }
+}
+
+@media (min-width: 1301px) and (max-height: 850px) {
+  .shell { padding-top: 10px; }
+  .top { margin-bottom: 6px; }
+  .title h1 { font-size: 27px; }
+  .layout { height: calc(100vh - 62px); }
+  .main { grid-template-rows: 184px 190px 148px 52px; gap: 8px; }
+  .card { padding: 10px; }
+  .score { font-size: 50px; }
+  .mini-chart { height: 70px; }
+  .node { min-height: 110px; padding: 8px 7px; }
+  .node p { font-size: 9.5px; margin: 5px 0; }
+  .lower-grid p { font-size: 10px; }
+  .donut { width: 70px; height: 70px; }
+  .donut:after { inset: 16px; }
+}
+
+
+
+/* KLARITEE v0.9.4-alpha — border polish + executive wall clipping fix */
+@media (min-width: 1301px) {
+  .main { grid-template-rows: 196px 192px 174px 58px; }
+  .journey { padding-bottom: 10px; }
+  .journey-row { margin-top: 8px; padding-top: 8px; }
+  .journey-row:before { top: 54px; opacity: .75; }
+  .node { min-height: 118px; padding: 9px 8px; }
+  .symbol { font-size: 21px; margin-bottom: 4px; }
+  .node h4 { font-size: 10.5px; }
+  .node p { font-size: 10px; line-height: 1.22; margin: 6px 0; }
+  .state { font-size: 8px; padding: 2px 6px; }
+
+  .lower-grid { grid-template-columns: 1.05fr 1.05fr .95fr .9fr; gap: 8px; }
+  .lower-grid .card { overflow: hidden; padding: 10px 12px; }
+  .lower-grid p { font-size: 10.5px; line-height: 1.28; margin: 4px 0; }
+  .lower-grid h3 { font-size: 12.5px; margin-bottom: 7px; }
+  .big-shift { font-size: 20px; line-height: 1.05; }
+  .confidence-num { font-size: 32px; line-height: 1; }
+  .donut { width: 72px; height: 72px; margin-top: 0; }
+  .donut:after { inset: 17px; }
+
+  .question {
+    height: 58px;
+    min-height: 58px;
+    padding: 9px 16px;
+    grid-template-columns: minmax(0,1fr) 250px 185px;
+    gap: 14px;
+    border-color: rgba(79,183,255,.34);
+    background:
+      linear-gradient(90deg, rgba(79,183,255,.08), transparent 28%),
+      linear-gradient(180deg, rgba(14,32,50,.94), rgba(8,18,29,.94));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.025), 0 0 18px rgba(79,183,255,.06);
+    overflow: hidden;
+    align-items: center;
+  }
+  .question small { font-size: 8.5px; line-height: 1; display:block; }
+  .question strong { font-size: 13.5px; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .question .rec { font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .question .pill-btn { justify-self: end; padding: 8px 13px; white-space: nowrap; }
+  .question .big-shift { font-size: 20px; }
+
+  .right .card { padding: 12px; }
+  .right .card-title { margin-bottom: 8px; }
+  .risk-item, .wait-item, .decision { padding-bottom: 7px; line-height: 1.25; }
+  .section-link { margin-top: 6px; }
+
+  body.mode-wall .shell { padding: 16px 18px 10px; }
+  body.mode-wall .layout { height: calc(100vh - 70px); grid-template-columns: minmax(0,1fr) 320px; }
+  body.mode-wall .main { grid-template-rows: 190px 188px 170px 56px; gap: 9px; }
+  body.mode-wall .top-cards { gap: 10px; }
+  body.mode-wall .journey-row { gap: 8px; }
+  body.mode-wall .node { min-height: 116px; }
+  body.mode-wall .lower-grid .card { padding: 10px 11px; }
+  body.mode-wall .right { gap: 8px; }
+  body.mode-wall .right .card { padding: 11px; }
+}
+
+@media (min-width: 1301px) and (max-height: 850px) {
+  .shell { padding-top: 10px; }
+  .top { margin-bottom: 6px; }
+  .title h1 { font-size: 27px; }
+  .title p { font-size: 12px; }
+  .layout { height: calc(100vh - 64px); }
+  .main { grid-template-rows: 184px 176px 160px 54px; gap: 8px; }
+  .top-cards { gap: 8px; }
+  .card { padding: 10px; }
+  .card-title { margin-bottom: 7px; font-size: 9px; }
+  .score { font-size: 50px; }
+  .mini-chart { height: 70px; }
+  .help-hurt { font-size: 10px; line-height: 1.35; }
+  .stand h2 { font-size: 18px; margin-bottom: 8px; }
+  .story-col ul { font-size: 9.5px; gap: 3px; }
+  .story-col p { font-size: 9.8px; }
+  .outcome-strip { display: none; }
+  .journey-row { gap: 7px; }
+  .node { min-height: 104px; }
+  .node p { display: none; }
+  .symbol { font-size: 20px; }
+  .lower-grid p { font-size: 9.8px; }
+  .donut { width: 62px; height: 62px; }
+  .question { height: 54px; min-height: 54px; }
+}
+
+</style>
+</head>
+<body class="mode-laptop">
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><div class="brand-title">KLARITEE</div><div class="brand-sub">Executive Horizon</div></div></div>
+    <div class="nav-title">EXECUTIVE</div>
+    <nav class="nav">
+      <div class="nav-item active">♡ How We're Doing <span>76</span></div>
+      <div class="nav-item">▣ Where We Stand <span>68</span></div>
+      <div class="nav-item">☷ The Story So Far <span>84</span></div>
+      <div class="nav-item">⌁ Our Journey <span>72</span></div>
+      <div class="nav-item">□ What Needs Attention <span>58</span></div>
+      <div class="nav-item">◎ What We're Worried About <span>61</span></div>
+      <div class="nav-item">⌘ What We Think Happens Next</div>
+    </nav>
+    <div class="quote"><strong>KAY Principle Zero</strong>“Great software should quietly take care of people during difficult moments.”<br><br>— Mary Kay Roling</div>
+  </aside>
+  <main class="shell">
+    <header class="top">
+      <div class="title"><h1>Klaritee Executive Horizon</h1><p>The truth, clearly. Context for decisions. Guidance for what comes next.</p></div>
+      <div><div class="actions"><button class="pill-btn active" onclick="setMode('laptop',this)">Laptop Mode</button><button class="pill-btn" onclick="setMode('wall',this)">Executive Wall</button><button class="pill-btn" onclick="setMode('presentation',this)">Presentation</button></div><div class="updated">Mission: Klaritee<br>Last updated: 5m ago <span class="dot"></span></div></div>
+    </header>
+    <section class="layout">
+      <div class="main">
+        <div class="top-cards">
+          <div class="card"><div class="card-title"><span class="icon">♡</span>How We're Doing</div><div class="how-grid"><div><div class="score">76</div><div class="score-caption">We're making progress.</div><div class="trend">▲ +7 since last review</div></div><div><div class="mini-chart"><svg viewBox="0 0 220 120"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b32" stop-opacity=".65"/><stop offset="1" stop-color="#ff6b32" stop-opacity="0"/></linearGradient></defs><path d="M0,85 C28,84 35,55 65,54 C95,55 96,76 128,67 C158,58 155,36 185,42 C204,48 208,52 220,46 L220,120 L0,120 Z" fill="url(#g1)"/><path d="M0,85 C28,84 35,55 65,54 C95,55 96,76 128,67 C158,58 155,36 185,42 C204,48 208,52 220,46" fill="none" stroke="#ff6b32" stroke-width="4"/><circle cx="65" cy="54" r="4" fill="#ff9b43"/><circle cx="185" cy="42" r="4" fill="#ff9b43"/><circle cx="220" cy="46" r="4" fill="#ff9b43"/></svg></div><div class="mini-labels"><span>Q4 '24</span><span>Q1 '25</span><span>Today</span></div></div><div class="help-hurt"><span class="help">What's helping:</span> Strong pipeline, product maturity, executive support<br><span class="hurt">What's hurting:</span> Proposal support, compliance readiness</div></div></div>
+          <div class="card stand"><div class="card-title"><span class="icon">⌘</span>Where We Stand</div><h2>We're moving forward.</h2><div class="stand-grid"><div class="stand-stat"><small>How sure we are</small><strong>68%</strong></div><div class="stand-stat"><small>Biggest concern</small><strong>Proposal support</strong></div><div class="stand-stat"><small>Outlook</small><strong class="green">Positive</strong></div></div><div class="belief">♡ We believe there is a viable path forward.</div></div>
+          <div class="card"><div class="card-title"><span class="icon">☷</span>The Story So Far</div><div class="story-grid"><div class="story-col"><h4>What's helping</h4><ul><li>Product maturity</li><li>Federal opportunity growth</li><li>Executive sponsorship</li><li>Pilot validation</li></ul></div><div class="story-col"><h4>What's slowing us down</h4><ul><li>Proposal support partner</li><li>Compliance readiness</li><li>Evidence package depth</li></ul></div><div class="story-col"><h4>What needs attention</h4><p>Select proposal support partner</p><p><b style="color:#8ccaff">Why it matters</b><br>Without this decision, federal proposal execution will likely slow.</p></div></div><div class="outcome-strip">What we think happens next<br>Mission Health: <strong>76</strong> → <strong class="to">84</strong></div></div>
+        </div>
+        <div class="card journey"><div class="journey-head"><div><div class="card-title"><span class="icon">✣</span>Our Journey</div><div class="journey-sub">Where we've been • Where we are • Where we think we're going</div></div><button class="pill-btn">View full journey →</button></div><div class="journey-row">
+          <div class="node"><div class="symbol">★</div><h4>Q3 2024<br>Foundation Built</h4><p>Problem validated<br>Vision defined<br>Team assembled</p><span class="state">Complete</span></div>
+          <div class="node"><div class="symbol">⚙</div><h4>Q4 2024<br>Product Built</h4><p>MVP delivered<br>Early testing<br>Iterated quickly</p><span class="state">Complete</span></div>
+          <div class="node"><div class="symbol">👥</div><h4>Q1 2025<br>First Pilot</h4><p>Pilot customer<br>Onboarding<br>Early feedback</p><span class="state">Complete</span></div>
+          <div class="node current"><div class="symbol">🚀</div><h4>Q2 2025<br>Federal Pipeline</h4><p>Opportunities grew<br>Position strengthened<br>Momentum building</p><span class="state">Current</span></div>
+          <div class="node"><div class="symbol">🛡</div><h4>Q3 2025<br>Readiness Focus</h4><p>Compliance work<br>Evidence package<br>Process hardening</p><span class="state" style="color:var(--orange)">In Progress</span></div>
+          <div class="node future"><div class="symbol">★</div><h4>Q4 2025<br>Scale Federal</h4><p>Multi-proposal execution<br>Broader wins<br>Referenceable success</p><span class="state">Upcoming</span></div>
+          <div class="node future"><div class="symbol">✦</div><h4>Q1 2026+<br>Commercial Scale</h4><p>Market expansion<br>Revenue growth<br>Platform leadership</p><span class="state" style="color:var(--purple)">Upcoming</span></div>
+        </div></div>
+        <div class="lower-grid">
+          <div class="card attention"><div class="card-title"><span class="icon">⚠</span>What Needs Attention</div><h3>Proposal support partner selection</h3><p><b style="color:#8ccaff">Why it matters</b><br>Without this decision, federal proposal execution will likely slow.</p><div class="big-shift">76 → <span>84</span></div><p style="color:var(--orange);font-weight:900">Recommended next step: select partner within 14 days.</p></div>
+          <div class="card belief-card"><div class="card-title"><span class="icon">♡</span>What We Believe Right Now</div><p>We believe Klaritee is moving in the right direction.</p><p><b style="color:var(--green)">Strongest indicators</b><br>Product maturity, federal opportunity growth, executive sponsorship.</p><p><b style="color:var(--orange)">Greatest uncertainty</b><br>Proposal support partner selection.</p><p style="color:#aac7e8">We still believe there is a viable path forward.</p></div>
+          <div class="card next"><div class="card-title"><span class="icon">↗</span>What We Think Happens Next</div><p>If proposal support partner is selected:</p><div class="big-shift" style="font-size:24px">68 → <span>92</span></div><p>Federal readiness</p><div class="big-shift" style="font-size:24px">72 → <span>88</span></div><p>Commercial readiness</p><p style="color:var(--green);font-weight:900">Expected outlook: Positive</p></div>
+          <div class="card sure"><div class="card-title"><span class="icon">◎</span>How Sure We Are</div><div class="confidence-num">68%</div><p>Moderate confidence</p><div class="donut"></div></div>
+        </div>
+        <div class="question"><div><small>Today's Executive Question</small><strong>What single decision most increases mission success?</strong><div class="rec">Recommended: Select proposal support partner</div></div><div><small>Expected mission health impact</small><div class="big-shift">76 → <span>84</span></div></div><button class="pill-btn">See decision details →</button></div>
+      </div>
+      <aside class="right">
+        <div class="card"><div class="card-title"><span class="icon">♢</span>What We're Worried About</div><div class="rail-list"><div class="risk-item"><div class="risk-dot"></div><div><b>Proposal support partner selection</b></div><span class="tag">High</span></div><div class="risk-item"><div class="risk-dot" style="background:var(--yellow)"></div><div><b>Compliance evidence package</b></div><span class="tag med">Medium</span></div><div class="risk-item"><div class="risk-dot" style="background:var(--yellow)"></div><div><b>Pilot customer timing</b></div><span class="tag med">Medium</span></div></div><div class="section-link">See all risks →</div></div>
+        <div class="card"><div class="card-title"><span class="icon">⌛</span>What We're Waiting On</div><div class="rail-list"><div class="wait-item"><div>⌛</div><div><b>Proposal support partner decision</b><br><span style="color:var(--muted)">Owner: Executive Team</span></div></div><div class="wait-item"><div>⌛</div><div><b>Compliance framework finalization</b><br><span style="color:var(--muted)">Owner: Product Team</span></div></div><div class="wait-item"><div>⌛</div><div><b>Customer pilot agreement</b><br><span style="color:var(--muted)">Owner: Sales Team</span></div></div></div><div class="section-link">See all dependencies →</div></div>
+        <div class="card"><div class="card-title"><span class="icon">□</span>What Needs Attention</div><div class="decision"><div style="color:var(--red)">△</div><div><strong>Select Proposal Support Partner</strong><div style="color:var(--muted);font-size:11px">Impact: High · Window: 14 days</div></div><span class="tag">High</span></div><div class="decision"><div style="color:var(--red)">△</div><div><strong>Prioritize Federal Pipeline</strong><div style="color:var(--muted);font-size:11px">Impact: High · Window: 7 days</div></div><span class="tag">High</span></div><div class="decision"><div style="color:var(--orange)">△</div><div><strong>CMMC Investment Strategy</strong><div style="color:var(--muted);font-size:11px">Impact: Medium · Window: 30 days</div></div><span class="tag med">Medium</span></div></div>
+      </aside>
+    </section>
+  </main>
+</div>
+<script>
+function setMode(mode,btn){document.body.className='mode-'+mode;document.querySelectorAll('.actions .pill-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active')}
+document.querySelectorAll('.node').forEach(n=>n.addEventListener('click',()=>{document.querySelectorAll('.node').forEach(x=>x.classList.remove('current'));n.classList.add('current')}));
+</script>
+</body>
+</html>
