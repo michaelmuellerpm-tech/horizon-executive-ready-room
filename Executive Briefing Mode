@@ -1,0 +1,23 @@
+FEATURE: Executive Briefing Mode
+
+Owner: Product
+Priority: High
+Origin: Marissa feedback + mobile usability review
+
+Description:
+Create a mobile-first executive briefing experience that summarizes:
+- Mission health
+- Top decisions
+- Risks
+- Timeline/journey progression
+- Strategic question of the day
+
+Initial use case:
+SBIR / government proposal lifecycle visualization.
+
+Potential timeline widget:
+Opportunity → Team Formation → Proposal → Submission → Review → Award → Execution
+
+Hypothesis:
+Executive Horizon desktop = operating system
+Executive Briefing mobile = leadership briefing application
