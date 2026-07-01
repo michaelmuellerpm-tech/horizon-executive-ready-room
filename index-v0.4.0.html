@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Klaritee Executive Horizon v0.3.4</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #020509;
+  --panel: rgba(8, 14, 23, 0.92);
+  --panel-2: rgba(13, 22, 35, 0.96);
+  --border: rgba(96, 168, 255, 0.18);
+  --blue: #4fb7ff;
+  --orange: #ff6b32;
+  --red: #ff3f4f;
+  --yellow: #ffb020;
+  --green: #35d07f;
+  --text: #f7fbff;
+  --muted: #8fa0b6;
+}
+
+body {
+  background:
+    radial-gradient(circle at 55% 20%, rgba(28, 116, 181, 0.25), transparent 32%),
+    linear-gradient(180deg, #03060b 0%, #010308 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  background: rgba(2, 5, 9, 0.96);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
+}
+
+.logo-main {
+  font-size: 17px;
+  letter-spacing: 7px;
+  font-weight: 900;
+}
+
+.logo-sub {
+  color: var(--orange);
+  font-weight: 900;
+  margin-top: 8px;
+}
+
+.label {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin: 26px 0 10px;
+}
+
+.nav {
+  padding: 11px 12px;
+  border-radius: 10px;
+  margin-bottom: 7px;
+  display: flex;
+  justify-content: space-between;
+  color: #d5deea;
+  font-size: 13px;
+}
+
+.nav.active {
+  background: linear-gradient(90deg, rgba(255, 107, 50, 0.36), rgba(255, 107, 50, 0.08));
+  border: 1px solid rgba(255, 107, 50, 0.4);
+}
+
+.nav span {
+  font-weight: 800;
+}
+
+/* MAIN */
+
+.main {
+  padding: 16px;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.modebar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+button {
+  background: #101a29;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button.active {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.kicker {
+  color: var(--blue);
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #c6d1df;
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 360px 360px;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 12px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.card h2 {
+  color: var(--blue);
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.status-row {
+  margin-bottom: 10px;
+}
+
+.status-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), #ff9b65);
+}
+
+.visual {
+  min-height: 250px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.visual::before {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 183, 255, 0.22), transparent 60%);
+  filter: blur(4px);
+}
+
+.helix {
+  position: absolute;
+  width: 320px;
+  height: 120px;
+  border: 2px solid rgba(79, 183, 255, 0.45);
+  border-left: none;
+  border-right: none;
+  border-radius: 50%;
+  transform: rotate(-17deg);
+  box-shadow: 0 0 26px rgba(79, 183, 255, 0.38);
+}
+
+.helix.two {
+  width: 300px;
+  height: 108px;
+  transform: rotate(19deg);
+  opacity: 0.85;
+}
+
+.helix::before,
+.helix::after {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border-top: 1px dashed rgba(79, 183, 255, 0.45);
+  border-bottom: 1px dashed rgba(79, 183, 255, 0.45);
+  border-radius: 50%;
+}
+
+.cube {
+  width: 92px;
+  height: 92px;
+  background:
+    repeating-linear-gradient(90deg, rgba(79,183,255,.28) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(0deg, rgba(79,183,255,.18) 0 1px, transparent 1px 17px);
+  border: 1px solid rgba(79, 183, 255, 0.75);
+  box-shadow:
+    0 0 40px rgba(79, 183, 255, 0.65),
+    inset 0 0 25px rgba(79, 183, 255, 0.28);
+  transform: rotateX(58deg) rotateZ(45deg);
+  z-index: 2;
+}
+
+.cube::after {
+  content: "MISSION\A CUBE";
+  white-space: pre;
+  position: absolute;
+  inset: 0;
+  transform: rotateZ(-45deg) rotateX(-58deg);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 900;
+}
+
+.orbit {
+  position: absolute;
+  color: var(--blue);
+  background: rgba(5, 10, 18, 0.72);
+  border: 1px solid rgba(79, 183, 255, 0.2);
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 10px;
+}
+
+.o1 { top: 30px; left: 24px; }
+.o2 { top: 34px; right: 22px; }
+.o3 { bottom: 34px; left: 30px; }
+.o4 { bottom: 34px; right: 34px; }
+
+.health {
+  color: var(--orange);
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 0.95;
+}
+
+.decision {
+  background: rgba(16, 25, 40, 0.78);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 9px;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.warn {
+  color: var(--red);
+}
+
+.warn.orange {
+  color: var(--yellow);
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.pri {
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.pri.orange {
+  color: var(--yellow);
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  color: var(--muted);
+  font-size: 11px;
+  text-align: left;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+td {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+}
+
+.badge {
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 900;
+  background: rgba(53,208,127,0.15);
+  color: var(--green);
+}
+
+.badge.discovery {
+  background: rgba(255,176,32,0.15);
+  color: var(--yellow);
+}
+
+.risk {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.red { background: var(--red); }
+.orange { background: var(--orange); }
+.yellow { background: var(--yellow); }
+
+.question {
+  background:
+    radial-gradient(circle at 10% 50%, rgba(79,183,255,0.18), transparent 18%),
+    radial-gradient(circle at 90% 50%, rgba(79,183,255,0.18), transparent 18%),
+    var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+}
+
+.question h2 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.reco {
+  color: var(--orange);
+  font-size: 14px;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+
+/* HORIZON TIMELINE ENGINE v0.3 - HERO JOURNEY SECTION */
+
+.timeline-section {
+  margin: 16px 0 14px;
+}
+
+.timeline-card {
+  position: relative;
+  overflow: visible;
+  margin: 0;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(79,183,255,0.16), transparent 26%),
+    radial-gradient(circle at 82% 60%, rgba(255,107,50,0.10), transparent 28%),
+    var(--panel);
+  border: 1px solid rgba(96,168,255,.24);
+  box-shadow: inset 0 0 24px rgba(79,183,255,.04);
+}
+
+.timeline-card h2 {
+  margin-bottom: 4px;
+}
+
+.timeline-subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.timeline-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.timeline-phase-labels {
+  display: flex;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.timeline-phase-labels span {
+  border: 1px solid rgba(79,183,255,.18);
+  background: rgba(255,255,255,.035);
+  padding: 5px 8px;
+  border-radius: 999px;
+}
+
+.timeline-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c6d1df;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.company { background: var(--blue); }
+.legend-dot.product { background: #46e6ff; }
+.legend-dot.government { background: var(--orange); }
+.legend-dot.contract { background: var(--green); }
+.legend-dot.strategic { background: var(--yellow); }
+.legend-dot.investment { background: #b889ff; }
+
+.timeline-scroll {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 10px 0 34px;
+}
+
+.timeline-container {
+  position: relative;
+  min-width: 1560px;
+  padding: 74px 28px 20px;
+}
+
+.timeline-now {
+  position: absolute;
+  top: 18px;
+  left: 57%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  z-index: 4;
+}
+
+.timeline-arrow {
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 116px;
+  left: 48px;
+  right: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(79,183,255,.82),
+    rgba(255,107,50,.92),
+    rgba(143,160,182,.35)
+  );
+  box-shadow: 0 0 22px rgba(79,183,255,.28);
+}
+
+.timeline-line::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 52%;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(255,107,50,.16);
+  box-shadow: 0 0 28px rgba(255,107,50,.45);
+  transform: translateX(-50%);
+}
+
+.timeline-items {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 12px;
+  position: relative;
+}
+
+.milestone {
+  min-width: 86px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  cursor: default;
+}
+
+.marker {
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.milestone.complete .marker {
+  color: var(--blue);
+  text-shadow: 0 0 16px rgba(79,183,255,.78);
+}
+
+.milestone.current .marker {
+  color: var(--orange);
+  text-shadow: 0 0 24px rgba(255,107,50,.95);
+  animation: pulseMarker 1.8s ease-in-out infinite;
+}
+
+.milestone.future .marker {
+  color: var(--muted);
+  opacity: .95;
+}
+
+.milestone.strategic .marker {
+  color: var(--yellow);
+  text-shadow: 0 0 20px rgba(255,176,32,.8);
+}
+
+.milestone-title {
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.22;
+}
+
+.milestone-date {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.milestone-category {
+  display: inline-block;
+  margin-top: 7px;
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.milestone-category.company { color: var(--blue); }
+.milestone-category.product { color: #46e6ff; }
+.milestone-category.government { color: var(--orange); }
+.milestone-category.contract { color: var(--green); }
+.milestone-category.strategic { color: var(--yellow); }
+.milestone-category.investment { color: #b889ff; }
+
+.milestone-detail {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 16px);
+  bottom: auto;
+  transform: translateX(-50%) translateY(-6px);
+  width: 245px;
+  opacity: 0;
+  pointer-events: none;
+  text-align: left;
+  background: rgba(4, 9, 16, 0.98);
+  border: 1px solid rgba(79,183,255,0.32);
+  box-shadow: 0 18px 45px rgba(0,0,0,.50), 0 0 24px rgba(79,183,255,.14);
+  border-radius: 12px;
+  padding: 12px;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 100;
+}
+
+.milestone:hover .milestone-detail,
+.milestone:focus-within .milestone-detail {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.detail-title {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 7px;
+}
+
+.detail-meta {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+  margin-bottom: 7px;
+}
+
+.detail-narrative {
+  color: #c6d1df;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.timeline-narrative {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 12px;
+}
+
+.narrative-list {
+  margin-top: 10px;
+  color: #c6d1df;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.narrative-list span {
+  display: block;
+}
+
+.outlook-score {
+  color: var(--orange);
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@keyframes pulseMarker {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.14); opacity: .82; }
+}
+
+
+
+/* HORIZON TIMELINE ENGINE v0.3.3 — weighted/category behavior */
+.timeline-weight-note {
+  color: var(--muted);
+  font-size: 10px;
+  margin: -2px 0 10px;
+  letter-spacing: .5px;
+}
+
+.timeline-items {
+  display: flex;
+  align-items: flex-start;
+  justify-content: stretch;
+  gap: 10px;
+  position: relative;
+}
+
+.milestone {
+  --cat: var(--blue);
+  --cat-rgb: 79,183,255;
+  --weight: 1;
+  --marker-size: 28px;
+  flex: var(--weight) 0 96px;
+  min-width: 88px;
+  max-width: 150px;
+  padding: 0 4px 8px;
+  border-radius: 12px;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.milestone.weight-1 { --weight: .72; --marker-size: 22px; }
+.milestone.weight-2 { --weight: .86; --marker-size: 24px; }
+.milestone.weight-3 { --weight: 1.00; --marker-size: 28px; }
+.milestone.weight-4 { --weight: 1.18; --marker-size: 32px; }
+.milestone.weight-5 { --weight: 1.38; --marker-size: 36px; }
+
+.milestone.category-company { --cat: var(--blue); --cat-rgb: 79,183,255; }
+.milestone.category-product { --cat: #46e6ff; --cat-rgb: 70,230,255; }
+.milestone.category-government { --cat: var(--orange); --cat-rgb: 255,107,50; }
+.milestone.category-contract { --cat: var(--green); --cat-rgb: 53,208,127; }
+.milestone.category-strategic { --cat: var(--yellow); --cat-rgb: 255,176,32; }
+.milestone.category-investment { --cat: #b889ff; --cat-rgb: 184,137,255; }
+
+.milestone:hover {
+  transform: translateY(-4px);
+  background: rgba(var(--cat-rgb), .055);
+  box-shadow: inset 0 0 0 1px rgba(var(--cat-rgb), .14);
+}
+
+.marker {
+  color: var(--cat) !important;
+  font-size: var(--marker-size);
+  text-shadow: 0 0 calc(var(--marker-size) * .65) rgba(var(--cat-rgb), .72);
+}
+
+.milestone.future .marker {
+  opacity: .68;
+  filter: saturate(.72);
+}
+
+.milestone.current .marker {
+  color: var(--cat) !important;
+  animation: pulseMarker 1.6s ease-in-out infinite;
+}
+
+.milestone.strategic .marker {
+  color: var(--cat) !important;
+  text-shadow: 0 0 24px rgba(var(--cat-rgb), .9), 0 0 10px rgba(255,255,255,.16);
+}
+
+.milestone-title {
+  font-size: clamp(9px, calc(8px + (var(--weight) * 2px)), 13px);
+}
+
+.milestone-date {
+  color: rgba(var(--cat-rgb), .9);
+}
+
+.milestone-category {
+  color: var(--cat) !important;
+  border-color: rgba(var(--cat-rgb), .24);
+  background: rgba(var(--cat-rgb), .08);
+}
+
+.milestone-detail {
+  border-color: rgba(var(--cat-rgb), .42);
+  box-shadow: 0 18px 45px rgba(0,0,0,.50), 0 0 26px rgba(var(--cat-rgb), .22);
+}
+
+.detail-title {
+  color: var(--cat);
+}
+
+.timeline-line {
+  background: linear-gradient(
+    90deg,
+    rgba(79,183,255,.82) 0%,
+    rgba(70,230,255,.72) 21%,
+    rgba(255,176,32,.9) 41%,
+    rgba(255,107,50,.86) 58%,
+    rgba(53,208,127,.72) 78%,
+    rgba(184,137,255,.72) 100%
+  );
+}
+
+.timeline-line::after {
+  left: 52%;
+  width: 52px;
+  background: rgba(255,176,32,.12);
+  box-shadow: 0 0 34px rgba(255,176,32,.44), 0 0 24px rgba(255,107,50,.28);
+}
+
+@media (max-width: 1200px) {
+  .timeline-items {
+    display: flex;
+  }
+}
+
+@media (max-width: 700px) {
+  .milestone {
+    max-width: none;
+  }
+}
+
+
+
+/* HORIZON TIMELINE ENGINE v0.3.5 — dependencies, confidence, and drill-down */
+.state-legend {
+  margin-top: -2px;
+  margin-bottom: 12px;
+}
+
+.state-symbol {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.complete-state { color: var(--blue); }
+.current-state { color: var(--orange); }
+.risk-state { color: var(--red); }
+.planned-state { color: var(--muted); }
+.star-state { color: var(--yellow); }
+.stretch-state { color: #b889ff; }
+
+.milestone.complete .marker,
+.milestone.current .marker,
+.milestone.planned .marker,
+.milestone.at-risk .marker,
+.milestone.transformational .marker,
+.milestone.stretch .marker {
+  font-size: var(--marker-size);
+}
+
+.milestone.complete {
+  opacity: .95;
+}
+
+.milestone.complete .marker {
+  color: var(--cat) !important;
+}
+
+.milestone.current {
+  background: rgba(var(--cat-rgb), .055);
+  box-shadow: inset 0 0 0 1px rgba(var(--cat-rgb), .18), 0 0 22px rgba(var(--cat-rgb), .12);
+}
+
+.milestone.current::after {
+  content: "CURRENT";
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--orange);
+  background: rgba(255,107,50,.10);
+  border: 1px solid rgba(255,107,50,.22);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+
+.milestone.planned .marker {
+  color: rgba(var(--cat-rgb), .72) !important;
+  opacity: .72;
+  text-shadow: none;
+}
+
+.milestone.at-risk {
+  background: rgba(255,63,79,.045);
+  box-shadow: inset 0 0 0 1px rgba(255,63,79,.18);
+}
+
+.milestone.at-risk .marker {
+  color: var(--red) !important;
+  animation: riskPulse 1.8s ease-in-out infinite;
+  text-shadow: 0 0 24px rgba(255,63,79,.85);
+}
+
+.milestone.at-risk .milestone-category {
+  color: var(--red) !important;
+  border-color: rgba(255,63,79,.30);
+  background: rgba(255,63,79,.10);
+}
+
+.milestone.at-risk::after {
+  content: "AT RISK";
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--red);
+  background: rgba(255,63,79,.10);
+  border: 1px solid rgba(255,63,79,.28);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+
+.milestone.transformational .marker {
+  color: var(--cat) !important;
+  transform: translateY(-2px);
+  text-shadow: 0 0 30px rgba(var(--cat-rgb), .95), 0 0 12px rgba(255,255,255,.22);
+}
+
+.milestone.transformational::after {
+  content: "TRANSFORM";
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(53,208,127,.10);
+  border: 1px solid rgba(53,208,127,.24);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+
+.milestone.stretch .marker {
+  color: #b889ff !important;
+  text-shadow: 0 0 30px rgba(184,137,255,.9), 0 0 12px rgba(255,255,255,.16);
+}
+
+.milestone.stretch::after {
+  content: "STRETCH";
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #b889ff;
+  background: rgba(184,137,255,.10);
+  border: 1px solid rgba(184,137,255,.24);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+
+.milestone.weight-5 .milestone-title {
+  color: var(--text);
+  text-shadow: 0 0 10px rgba(var(--cat-rgb), .22);
+}
+
+@keyframes riskPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: .72; }
+}
+
+
+
+/* HORIZON TIMELINE ENGINE v0.3.5 — dependencies, confidence, and drill-down */
+.dependency-swatch {
+  width: 22px;
+  height: 2px;
+  display: inline-block;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,176,32,.9), rgba(255,63,79,.9));
+  box-shadow: 0 0 10px rgba(255,176,32,.35);
+}
+
+.confidence-swatch {
+  width: 18px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--red), var(--yellow), var(--green));
+}
+
+.dependency-map {
+  position: absolute;
+  top: 50px;
+  left: 28px;
+  right: 28px;
+  width: calc(100% - 56px);
+  height: 126px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dependency {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+  opacity: .78;
+}
+
+.dependency-soft {
+  stroke: rgba(79,183,255,.55);
+}
+
+.dependency-risk {
+  stroke: rgba(255,63,79,.72);
+  filter: drop-shadow(0 0 7px rgba(255,63,79,.36));
+}
+
+.dependency-transform {
+  stroke: rgba(53,208,127,.64);
+  filter: drop-shadow(0 0 7px rgba(53,208,127,.26));
+}
+
+.confidence-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 10px;
+  margin: 7px 0 4px;
+}
+
+.confidence-row strong {
+  color: var(--cat);
+}
+
+.confidence-bar {
+  height: 5px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,.08);
+  margin-bottom: 8px;
+}
+
+.confidence-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,63,79,.78), rgba(255,176,32,.85), rgba(53,208,127,.85));
+}
+
+.drilldown {
+  margin-top: 9px;
+  color: var(--cat);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+}
+
+.timeline-intelligence {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.intel-card {
+  background: rgba(16, 25, 40, 0.72);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.intel-card h2 {
+  color: var(--blue);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.dependency-intel { border-color: rgba(255,176,32,.22); }
+.risk-intel { border-color: rgba(255,63,79,.24); }
+.confidence-intel { border-color: rgba(53,208,127,.22); }
+
+@media (max-width: 1200px) {
+  .timeline-intelligence { grid-template-columns: 1fr; }
+  .dependency-map { display: none; }
+}
+
+
+
+
+/* HORIZON STRATEGIC JOURNEY ENGINE v0.4 — milestone intelligence */
+.milestone {
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, opacity .18s ease;
+}
+
+.milestone:hover,
+.milestone.selected {
+  transform: translateY(-3px);
+}
+
+.milestone.selected {
+  background: rgba(var(--cat-rgb), .12);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--cat-rgb), .45),
+    0 0 28px rgba(var(--cat-rgb), .24);
+}
+
+.milestone.selected .marker {
+  filter: drop-shadow(0 0 12px rgba(var(--cat-rgb), .8));
+}
+
+.milestone.dependency-source {
+  box-shadow: inset 0 0 0 1px rgba(79,183,255,.35), 0 0 18px rgba(79,183,255,.12);
+}
+
+.milestone.dependency-target {
+  box-shadow: inset 0 0 0 1px rgba(53,208,127,.38), 0 0 18px rgba(53,208,127,.12);
+}
+
+.milestone.dimmed {
+  opacity: .52;
+}
+
+.milestone-intelligence-panel {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.milestone-profile {
+  border-color: rgba(79,183,255,.22);
+}
+
+.intel-title {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.intel-meta {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.weight-stars {
+  color: var(--yellow);
+  letter-spacing: 3px;
+  font-size: 16px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 14px rgba(255,176,32,.35);
+}
+
+.selected-confidence span {
+  transition: width .25s ease;
+}
+
+.intel-list-title {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 6px 0 5px;
+}
+
+.intel-list-title.unlocks {
+  color: var(--green);
+  margin-top: 10px;
+}
+
+.milestone-intelligence-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.milestone-intelligence-panel li {
+  color: #c6d1df;
+  font-size: 12px;
+  line-height: 1.35;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.milestone-intelligence-panel li::before {
+  content: "→";
+  color: var(--orange);
+  margin-right: 6px;
+}
+
+.milestone-profile .subtitle,
+.milestone-intelligence-panel .subtitle {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1200px) {
+  .milestone-intelligence-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* HORIZON TIMELINE ENGINE v0.3.5a — tooltip clipping fix */
+.timeline-card,
+.timeline-container,
+.timeline-items {
+  overflow-y: visible;
+}
+
+.timeline-container {
+  padding-bottom: 210px;
+}
+
+.milestone-detail::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%) rotate(45deg);
+  background: rgba(4, 9, 16, 0.98);
+  border-left: 1px solid rgba(var(--cat-rgb), .42);
+  border-top: 1px solid rgba(var(--cat-rgb), .42);
+}
+
+/* LAPTOP MODE: balanced 100% laptop demo */
+body[data-mode="laptop"] .app {
+  grid-template-columns: 210px 1fr;
+}
+
+body[data-mode="laptop"] .main {
+  padding: 12px;
+}
+
+body[data-mode="laptop"] .hero {
+  grid-template-columns: 1fr 340px 340px;
+}
+
+body[data-mode="laptop"] .grid3,
+body[data-mode="laptop"] .grid2 {
+  display: none;
+}
+
+body[data-mode="laptop"] h1 {
+  font-size: 30px;
+}
+
+body[data-mode="laptop"] .visual {
+  min-height: 240px;
+}
+
+body[data-mode="laptop"] .question {
+  margin-top: 10px;
+}
+
+body[data-mode="laptop"] .timeline-card {
+  padding: 16px;
+}
+
+body[data-mode="laptop"] .timeline-container {
+  min-width: 1480px;
+}
+
+
+/* EXECUTIVE WALL: full command-center mode */
+body[data-mode="wall"] .app {
+  grid-template-columns: 270px 1fr;
+}
+
+body[data-mode="wall"] .main {
+  padding: 22px;
+}
+
+body[data-mode="wall"] .hero {
+  grid-template-columns: 1fr 520px 430px;
+}
+
+body[data-mode="wall"] .visual {
+  min-height: 360px;
+}
+
+body[data-mode="wall"] .helix {
+  width: 500px;
+  height: 205px;
+}
+
+body[data-mode="wall"] .helix.two {
+  width: 475px;
+  height: 185px;
+}
+
+body[data-mode="wall"] .cube {
+  width: 170px;
+  height: 170px;
+}
+
+body[data-mode="wall"] h1 {
+  font-size: 44px;
+}
+
+/* PRESENTATION MODE: clean boardroom slide */
+body[data-mode="presentation"] .sidebar {
+  display: none;
+}
+
+body[data-mode="presentation"] .app {
+  grid-template-columns: 1fr;
+}
+
+body[data-mode="presentation"] .main {
+  padding: 18px;
+}
+
+body[data-mode="presentation"] .topline {
+  display: none;
+}
+
+body[data-mode="presentation"] .modebar {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 9999;
+  opacity: 0.25;
+}
+
+body[data-mode="presentation"] .modebar:hover {
+  opacity: 1;
+}
+
+body[data-mode="presentation"] .hero {
+  grid-template-columns: 0.9fr 1.15fr;
+  gap: 18px;
+  align-items: center;
+}
+
+body[data-mode="presentation"] .right-stack {
+  display: none;
+}
+
+body[data-mode="presentation"] .grid3,
+body[data-mode="presentation"] .grid2 {
+  display: none;
+}
+
+body[data-mode="presentation"] h1 {
+  font-size: 48px;
+}
+
+body[data-mode="presentation"] .subtitle {
+  font-size: 16px;
+  max-width: 700px;
+}
+
+body[data-mode="presentation"] .visual {
+  min-height: 370px;
+}
+
+body[data-mode="presentation"] .helix {
+  width: 470px;
+  height: 185px;
+}
+
+body[data-mode="presentation"] .helix.two {
+  width: 440px;
+  height: 165px;
+}
+
+body[data-mode="presentation"] .cube {
+  width: 145px;
+  height: 145px;
+}
+
+body[data-mode="presentation"] .question {
+  margin-top: 16px;
+  padding: 20px;
+}
+
+body[data-mode="presentation"] .question h2 {
+  font-size: 32px;
+}
+
+
+body[data-mode="presentation"] .timeline-section {
+  margin-top: 18px;
+}
+
+body[data-mode="presentation"] .timeline-card {
+  padding: 18px;
+}
+
+body[data-mode="presentation"] .timeline-container {
+  min-width: 1450px;
+}
+
+body[data-mode="presentation"] .timeline-narrative {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* smaller screens */
+@media (max-width: 1200px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  body[data-mode="laptop"] .app,
+  body[data-mode="wall"] .app {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-mode="laptop"] .hero,
+  body[data-mode="wall"] .hero,
+  body[data-mode="presentation"] .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .visual {
+    min-height: 260px;
+  }
+
+  .timeline-card {
+    margin-top: 12px;
+  }
+
+  .timeline-scroll {
+    overflow-x: visible;
+    padding: 4px 0 10px;
+  }
+
+  .timeline-container {
+    min-width: 0;
+    padding: 8px 0 4px;
+  }
+
+  .timeline-now,
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .milestone {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    text-align: left;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 9px;
+  }
+
+  .marker {
+    margin-bottom: 0;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .milestone-title {
+    font-size: 12px;
+  }
+
+  .milestone-date {
+    margin-top: 0;
+    font-size: 10px;
+  }
+
+  .milestone-category {
+    display: none;
+  }
+
+  .milestone-detail {
+    position: static;
+    width: auto;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    grid-column: 2 / -1;
+    margin-top: 6px;
+    padding: 8px;
+    box-shadow: none;
+  }
+
+  .timeline-narrative {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 700px) {
+  .timeline-head {
+    flex-direction: column;
+  }
+
+  .timeline-phase-labels {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .timeline-scroll {
+    overflow-x: visible;
+    padding-bottom: 8px;
+  }
+
+  .timeline-container {
+    min-width: 0;
+    padding: 18px 0 8px;
+  }
+
+  .timeline-now,
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .milestone {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    text-align: left;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  .marker {
+    margin-bottom: 0;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .milestone-title {
+    font-size: 12px;
+  }
+
+  .milestone-date {
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .milestone-category {
+    display: none;
+  }
+
+  .milestone-detail {
+    display: none;
+  }
+
+  .timeline-narrative {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+</head>
+<body data-mode="laptop">
+<div class="app">
+<aside class="sidebar">
+<div class="logo-main">KLARITEE</div>
+<div class="logo-sub">EXECUTIVE HORIZON</div>
+<div class="label">EXECUTIVE</div>
+<div class="nav active">Executive Overview <span>76</span></div>
+<div class="nav">Government Runbook <span>68</span></div>
+<div class="nav">SBIR Pipeline <span>84</span></div>
+<div class="nav">Product Portfolio <span>72</span></div>
+<div class="nav">Risk Register <span>61</span></div>
+<div class="nav">Decision Queue <span>58</span></div>
+<div class="label">SYSTEM</div>
+<div class="nav">Framework <span>v0.1</span></div>
+<div class="nav">Klaritee Vertical <span>alpha</span></div>
+</aside>
+<main class="main">
+<div class="topline">
+<div>KLARITEE EXECUTIVE HORIZON · EXECUTIVE INTELLIGENCE ENGINE</div>
+<div>Victor · Horizon View</div>
+</div>
+<div class="modebar">
+<button class="active" onclick="setMode('laptop', this)">Laptop Mode</button>
+<button onclick="setMode('wall', this)">Executive Wall</button>
+<button onclick="setMode('presentation', this)">Presentation</button>
+</div>
+<section class="hero">
+<div>
+<div class="kicker">KLARITEE EXECUTIVE HORIZON</div>
+<h1>Klaritee Executive Horizon</h1>
+<p class="subtitle">
+          Turning government opportunities, operational intelligence, product maturity,
+          risk posture, and executive decisions into mission-winning clarity.
+        </p>
+<br/>
+<div class="card">
+<h2>Mission Status</h2>
+<div class="status-row">
+<div class="status-top"><span>Government Readiness</span><strong>68</strong></div>
+<div class="bar"><div class="fill" style="width:68%"></div></div>
+</div>
+<div class="status-row">
+<div class="status-top"><span>Federal Pipeline</span><strong>84</strong></div>
+<div class="bar"><div class="fill" style="width:84%"></div></div>
+</div>
+<div class="status-row">
+<div class="status-top"><span>Product Portfolio</span><strong>72</strong></div>
+<div class="bar"><div class="fill" style="width:72%"></div></div>
+</div>
+<div class="status-row">
+<div class="status-top"><span>Risk Management</span><strong>61</strong></div>
+<div class="bar"><div class="fill" style="width:61%"></div></div>
+</div>
+<div class="status-row">
+<div class="status-top"><span>Executive Decisions</span><strong>58</strong></div>
+<div class="bar"><div class="fill" style="width:58%"></div></div>
+</div>
+</div>
+</div>
+<div class="visual">
+<div class="orbit o1">Government · 68</div>
+<div class="orbit o2">Pipeline · 84</div>
+<div class="orbit o3">Products · 72</div>
+<div class="orbit o4">Risk · 61</div>
+<div class="helix"></div>
+<div class="helix two"></div>
+<div class="cube"></div>
+</div>
+<div class="right-stack">
+<div class="card">
+<h2>Mission Health</h2>
+<div class="health">76</div>
+<p class="subtitle">Out of 100 · current executive operating score</p>
+</div>
+<br/>
+<div class="card">
+<h2>Executive Decisions Required</h2>
+<div class="decision">
+<div class="warn">⚠</div>
+<div>
+<strong>Select Proposal Support Partner</strong>
+<div class="meta">Impact: High · Window: 14 days</div>
+</div>
+<div class="pri">CRITICAL</div>
+</div>
+<div class="decision">
+<div class="warn">⚠</div>
+<div>
+<strong>Prioritize Federal Pipeline</strong>
+<div class="meta">Impact: High · Window: 7 days</div>
+</div>
+<div class="pri">CRITICAL</div>
+</div>
+<div class="decision">
+<div class="warn orange">⚠</div>
+<div>
+<strong>CMMC Investment Strategy</strong>
+<div class="meta">Impact: Medium · Window: 30 days</div>
+</div>
+<div class="pri orange">HIGH</div>
+</div>
+</div>
+</div>
+</section>
+<section class="timeline-section">
+<div class="card timeline-card">
+<div class="timeline-head">
+<div>
+<h2>Strategic Journey Engine</h2>
+<p class="timeline-subtitle">Interactive milestone intelligence showing where Klaritee has been, where it is now, and what each milestone unlocks next.</p>
+</div>
+<div class="timeline-phase-labels">
+<span>Past</span>
+<span>Present</span>
+<span>Future</span>
+</div>
+</div>
+<div class="timeline-legend">
+<span class="legend-item"><span class="legend-dot company"></span>Company</span>
+<span class="legend-item"><span class="legend-dot product"></span>Product</span>
+<span class="legend-item"><span class="legend-dot government"></span>Government</span>
+<span class="legend-item"><span class="legend-dot contract"></span>Contract</span>
+<span class="legend-item"><span class="legend-dot strategic"></span>Strategic</span>
+<span class="legend-item"><span class="legend-dot investment"></span>Investment</span>
+</div>
+<div class="timeline-legend state-legend">
+<span class="legend-item"><span class="state-symbol complete-state">●</span>Complete</span>
+<span class="legend-item"><span class="state-symbol current-state">◆</span>Current</span>
+<span class="legend-item"><span class="state-symbol risk-state">⚠</span>At Risk</span>
+<span class="legend-item"><span class="state-symbol planned-state">○</span>Planned</span>
+<span class="legend-item"><span class="state-symbol star-state">★</span>Transformational</span>
+<span class="legend-item"><span class="state-symbol stretch-state">✦</span>Stretch</span>
+<span class="legend-item"><span class="dependency-swatch"></span>Dependency</span>
+<span class="legend-item"><span class="confidence-swatch"></span>Confidence</span>
+</div>
+<div class="timeline-weight-note">Milestone size reflects strategic weight. Marker color reflects business category. Shape reflects milestone state.</div>
+<div class="timeline-scroll">
+<div class="timeline-container">
+<div class="timeline-now">
+<span>TODAY</span>
+<div class="timeline-arrow">▼</div>
+</div>
+<div class="timeline-line"></div>
+<svg class="dependency-map" viewBox="0 0 1560 150" preserveAspectRatio="none" aria-hidden="true">
+  <path class="dependency dependency-soft" d="M 655 72 C 720 28, 790 28, 855 72" />
+  <path class="dependency dependency-risk" d="M 975 72 C 1050 12, 1160 14, 1250 72" />
+  <path class="dependency dependency-transform" d="M 1250 72 C 1325 30, 1405 30, 1500 72" />
+</svg>
+<div class="timeline-items">
+<div tabindex="0" class="milestone complete category-company weight-3" data-category="Company" data-weight="3">
+<div class="marker">●</div>
+<div class="milestone-title">Company<br/>Formation</div>
+<div class="milestone-date">2025</div>
+<div class="milestone-category company">Company</div>
+<div class="milestone-detail">
+<div class="detail-title">Company Formation</div>
+<div class="detail-meta">Owner: Victor · Status: Completed · Value: 10/10 · Weight: 3/5 · Confidence: 95%</div>
+<div class="confidence-row"><span>Confidence</span><strong>95%</strong></div>
+<div class="confidence-bar"><span style="width:95%"></span></div>
+<div class="detail-narrative">Klaritee's mission and initial operating thesis take shape.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone complete category-strategic weight-2" data-category="Strategic" data-weight="2">
+<div class="marker">●</div>
+<div class="milestone-title">Concept<br/>Validation</div>
+<div class="milestone-date">2025</div>
+<div class="milestone-category strategic">Strategic</div>
+<div class="milestone-detail">
+<div class="detail-title">Concept Validation</div>
+<div class="detail-meta">Owner: Victor · Status: Completed · Value: 8/10 · Weight: 2/5 · Confidence: 90%</div>
+<div class="confidence-row"><span>Confidence</span><strong>90%</strong></div>
+<div class="confidence-bar"><span style="width:90%"></span></div>
+<div class="detail-narrative">Early market and product direction validated through customer and domain feedback.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone complete category-product weight-3" data-category="Product" data-weight="3">
+<div class="marker">●</div>
+<div class="milestone-title">Product<br/>Prototype</div>
+<div class="milestone-date">Q1 2026</div>
+<div class="milestone-category product">Product</div>
+<div class="milestone-detail">
+<div class="detail-title">Product Prototype</div>
+<div class="detail-meta">Owner: Product · Status: Completed · Value: 9/10 · Weight: 3/5 · Confidence: 88%</div>
+<div class="confidence-row"><span>Confidence</span><strong>88%</strong></div>
+<div class="confidence-bar"><span style="width:88%"></span></div>
+<div class="detail-narrative">Initial product surface area established across contract intelligence and review workflows.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone complete category-government weight-3" data-category="Government" data-weight="3">
+<div class="marker">●</div>
+<div class="milestone-title">Government<br/>Strategy</div>
+<div class="milestone-date">Q1 2026</div>
+<div class="milestone-category government">Government</div>
+<div class="milestone-detail">
+<div class="detail-title">Government Strategy</div>
+<div class="detail-meta">Owner: Victor / Joe · Status: Completed · Value: 8/10 · Weight: 3/5 · Confidence: 80%</div>
+<div class="confidence-row"><span>Confidence</span><strong>80%</strong></div>
+<div class="confidence-bar"><span style="width:80%"></span></div>
+<div class="detail-narrative">Federal opportunity landscape identified as a meaningful growth path.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone complete category-product weight-3" data-category="Product" data-weight="3">
+<div class="marker">●</div>
+<div class="milestone-title">Mission Control<br/>Prototype</div>
+<div class="milestone-date">Q2 2026</div>
+<div class="milestone-category product">Product</div>
+<div class="milestone-detail">
+<div class="detail-title">Mission Control Prototype</div>
+<div class="detail-meta">Owner: MCK · Status: Completed · Value: 9/10 · Weight: 3/5 · Confidence: 92%</div>
+<div class="confidence-row"><span>Confidence</span><strong>92%</strong></div>
+<div class="confidence-bar"><span style="width:92%"></span></div>
+<div class="detail-narrative">Operational dashboard concept proves that executive status can be converted into a decision experience.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone complete strategic category-strategic weight-5" data-category="Strategic" data-weight="5">
+<div class="marker">★</div>
+<div class="milestone-title">Executive<br/>Horizon Alpha</div>
+<div class="milestone-date">Q2 2026</div>
+<div class="milestone-category strategic">Strategic</div>
+<div class="milestone-detail">
+<div class="detail-title">Executive Horizon Alpha</div>
+<div class="detail-meta">Owner: Victor / Marissa · Status: Completed · Value: 10/10 · Weight: 5/5 · Confidence: 96%</div>
+<div class="confidence-row"><span>Confidence</span><strong>96%</strong></div>
+<div class="confidence-bar"><span style="width:96%"></span></div>
+<div class="detail-narrative">First cloud-hosted executive operating picture deployed through GitHub and Cloudflare.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone complete category-product weight-3" data-category="Product" data-weight="3">
+<div class="marker">●</div>
+<div class="milestone-title">Airtable<br/>Data Layer</div>
+<div class="milestone-date">Q2 2026</div>
+<div class="milestone-category product">Product</div>
+<div class="milestone-detail">
+<div class="detail-title">Airtable Data Layer</div>
+<div class="detail-meta">Owner: Marissa / MCK · Status: Completed · Value: 9/10 · Weight: 3/5 · Confidence: 85%</div>
+<div class="confidence-row"><span>Confidence</span><strong>85%</strong></div>
+<div class="confidence-bar"><span style="width:85%"></span></div>
+<div class="detail-narrative">Horizon metrics, grant portfolio, decisions, risks, and strategic initiatives become structured operating data.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone current strategic category-government weight-5" data-category="Government" data-weight="5" data-state="Current">
+<div class="marker">★</div>
+<div class="milestone-title">Grant Expansion<br/>Strategy</div>
+<div class="milestone-date">NOW</div>
+<div class="milestone-category government">Government</div>
+<div class="milestone-detail">
+<div class="detail-title">Grant Expansion Strategy</div>
+<div class="detail-meta">Owner: Marissa · Status: Current · Value: 10/10 · Weight: 5/5 · Confidence: 72%</div>
+<div class="confidence-row"><span>Confidence</span><strong>72%</strong></div>
+<div class="confidence-bar"><span style="width:72%"></span></div>
+<div class="detail-narrative">Build the funding engine: identify, qualify, prioritize, and submit more grant opportunities.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone current strategic category-strategic weight-5" data-category="Strategic" data-weight="5" data-state="Current">
+<div class="marker">◆</div>
+<div class="milestone-title">First Pilot<br/>Customer</div>
+<div class="milestone-date">NOW</div>
+<div class="milestone-category strategic">Strategic</div>
+<div class="milestone-detail">
+<div class="detail-title">First Pilot Customer</div>
+<div class="detail-meta">Owner: Victor / Marissa · Status: Current · Value: 9/10 · Weight: 5/5 · Confidence: 68%</div>
+<div class="confidence-row"><span>Confidence</span><strong>68%</strong></div>
+<div class="confidence-bar"><span style="width:68%"></span></div>
+<div class="detail-narrative">Secure the first external validation engagement for Executive Horizon and Klaritee's broader operating model.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone planned category-government weight-3" data-category="Government" data-weight="3" data-state="Planned">
+<div class="marker">○</div>
+<div class="milestone-title">OASW-SOLIC<br/>Submission</div>
+<div class="milestone-date">Q3 2026</div>
+<div class="milestone-category government">Government</div>
+<div class="milestone-detail">
+<div class="detail-title">OASW-SOLIC Submission</div>
+<div class="detail-meta">Owner: Joe / Marissa · Status: Submitted · Value: 8/10 · Weight: 3/5 · Confidence: 62%</div>
+<div class="confidence-row"><span>Confidence</span><strong>62%</strong></div>
+<div class="confidence-bar"><span style="width:62%"></span></div>
+<div class="detail-narrative">Defense accelerator submission creates funding upside and market visibility even if not awarded.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone at-risk category-contract weight-4" data-category="Contract" data-weight="4" data-state="At Risk">
+<div class="marker">⚠</div>
+<div class="milestone-title">Proposal Partner<br/>Selected</div>
+<div class="milestone-date">Q3 2026</div>
+<div class="milestone-category contract">Contract</div>
+<div class="milestone-detail">
+<div class="detail-title">Proposal Partner Selected</div>
+<div class="detail-meta">Owner: Victor · Status: At Risk · Value: 9/10 · Weight: 4/5 · Confidence: 46%</div>
+<div class="confidence-row"><span>Confidence</span><strong>46%</strong></div>
+<div class="confidence-bar"><span style="width:46%"></span></div>
+<div class="detail-narrative">Select a partner to increase federal proposal velocity and reduce executive bottlenecks.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone planned category-government weight-4" data-category="Government" data-weight="4" data-state="Planned">
+<div class="marker">○</div>
+<div class="milestone-title">SBIR<br/>Expansion</div>
+<div class="milestone-date">Q3/Q4 2026</div>
+<div class="milestone-category government">Government</div>
+<div class="milestone-detail">
+<div class="detail-title">SBIR Expansion</div>
+<div class="detail-meta">Owner: Marissa / Joe · Status: Planned · Value: 9/10 · Weight: 4/5 · Confidence: 58%</div>
+<div class="confidence-row"><span>Confidence</span><strong>58%</strong></div>
+<div class="confidence-bar"><span style="width:58%"></span></div>
+<div class="detail-narrative">Expand the grant and SBIR portfolio from single submissions into a repeatable funding pipeline.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone transformational strategic category-contract weight-5" data-category="Contract" data-weight="5" data-state="Transformational">
+<div class="marker">★</div>
+<div class="milestone-title">First Federal<br/>Contract</div>
+<div class="milestone-date">Q4 2026</div>
+<div class="milestone-category contract">Contract</div>
+<div class="milestone-detail">
+<div class="detail-title">First Federal Contract</div>
+<div class="detail-meta">Owner: Victor · Status: Transformational · Value: 10/10 · Weight: 5/5 · Confidence: 54%</div>
+<div class="confidence-row"><span>Confidence</span><strong>54%</strong></div>
+<div class="confidence-bar"><span style="width:54%"></span></div>
+<div class="detail-narrative">Convert federal interest into contracted revenue and market proof.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone planned category-product weight-4" data-category="Product" data-weight="4" data-state="Planned">
+<div class="marker">○</div>
+<div class="milestone-title">Commercial<br/>Launch</div>
+<div class="milestone-date">2027</div>
+<div class="milestone-category product">Product</div>
+<div class="milestone-detail">
+<div class="detail-title">Commercial Launch</div>
+<div class="detail-meta">Owner: Victor / Product · Status: Planned · Value: 8/10 · Weight: 4/5 · Confidence: 50%</div>
+<div class="confidence-row"><span>Confidence</span><strong>50%</strong></div>
+<div class="confidence-bar"><span style="width:50%"></span></div>
+<div class="detail-narrative">Package Klaritee's contract intelligence capabilities into a broader commercial growth motion.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+<div tabindex="0" class="milestone stretch strategic category-investment weight-5" data-category="Investment" data-weight="5" data-state="Stretch">
+<div class="marker">✦</div>
+<div class="milestone-title">Strategic<br/>Investment</div>
+<div class="milestone-date">2027</div>
+<div class="milestone-category investment">Investment</div>
+<div class="milestone-detail">
+<div class="detail-title">Strategic Investment</div>
+<div class="detail-meta">Owner: Victor · Status: Stretch Goal · Value: 9/10 · Weight: 5/5 · Confidence: 38%</div>
+<div class="confidence-row"><span>Confidence</span><strong>38%</strong></div>
+<div class="confidence-bar"><span style="width:38%"></span></div>
+<div class="detail-narrative">Use customer traction, federal funding, and product maturity to support strategic capital options.</div>
+<div class="drilldown">Executive drill-down →</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="timeline-narrative">
+<div class="card">
+<h2>Executive Narrative</h2>
+<p class="subtitle">
+              Klaritee is moving from product invention into mission execution. The current Horizon moment is defined by grant expansion, pilot customer validation, and federal market entry.
+            </p>
+<div class="narrative-list">
+<span>• Past: product thesis, prototype, and executive operating model established.</span>
+<span>• Present: funding engine and first pilot pathway are active.</span>
+<span>• Future: SBIR expansion, first federal contract, commercial launch, and strategic investment.</span>
+</div>
+</div>
+<div class="card">
+<h2>Strategic Outlook</h2>
+<div class="outlook-score">Positive</div>
+<p class="subtitle">Trajectory is strong, with execution risk concentrated around proposal capacity, customer conversion, and federal readiness.</p>
+</div>
+</div>
+<div class="milestone-intelligence-panel" id="milestone-intelligence-panel">
+  <div class="intel-card milestone-profile">
+    <h2>Milestone Intelligence</h2>
+    <div class="intel-title" id="selected-title">Grant Expansion Strategy</div>
+    <div class="intel-meta" id="selected-meta">Owner: Marissa · Status: Current · Value: 10/10 · Weight: 5/5 · Confidence: 72%</div>
+    <div class="weight-stars" id="selected-weight">★★★★★</div>
+    <div class="confidence-row"><span>Confidence</span><strong id="selected-confidence-label">72%</strong></div>
+    <div class="confidence-bar selected-confidence"><span id="selected-confidence-bar" style="width:72%"></span></div>
+    <p class="subtitle" id="selected-narrative">Build the funding engine: identify, qualify, prioritize, and submit more grant opportunities.</p>
+  </div>
+
+  <div class="intel-card dependency-intel">
+    <h2>Dependency Intelligence</h2>
+    <div class="intel-list-title">Enabled By</div>
+    <ul id="selected-dependencies">
+      <li>Executive Horizon Alpha</li>
+      <li>Airtable Data Layer</li>
+    </ul>
+    <div class="intel-list-title unlocks">Unlocks</div>
+    <ul id="selected-unlocks">
+      <li>SBIR Expansion</li>
+      <li>First Federal Contract</li>
+    </ul>
+  </div>
+
+  <div class="intel-card risk-intel">
+    <h2>Risk Overlay</h2>
+    <p class="subtitle" id="selected-risk"><strong>Execution risk:</strong> Proposal capacity and partner selection remain the key constraints.</p>
+  </div>
+
+  <div class="intel-card confidence-intel">
+    <h2>Executive Assessment</h2>
+    <p class="subtitle" id="selected-assessment"><strong>Outlook:</strong> Positive trajectory, but success depends on converting the grant strategy into repeatable execution.</p>
+  </div>
+</div>
+</div>
+</section>
+<section class="grid3">
+<div class="card">
+<h2>Federal Pipeline</h2>
+<table>
+<tr><th>Opportunity</th><th>Score</th><th>Status</th></tr>
+<tr><td>DLA SBIR</td><td>91</td><td><span class="badge">ACTIVE</span></td></tr>
+<tr><td>Tradewinds</td><td>85</td><td><span class="badge">ACTIVE</span></td></tr>
+<tr><td>Army AI2C</td><td>82</td><td><span class="badge">ACTIVE</span></td></tr>
+<tr><td>ONI</td><td>61</td><td><span class="badge discovery">DISCOVERY</span></td></tr>
+</table>
+</div>
+<div class="card">
+<h2>Product Portfolio</h2>
+<table>
+<tr><th>Product</th><th>Ready</th><th>Value</th></tr>
+<tr><td>Contracts</td><td>90</td><td>High</td></tr>
+<tr><td>Verify</td><td>88</td><td>High</td></tr>
+<tr><td>Sentinel</td><td>65</td><td>Very High</td></tr>
+<tr><td>Compliance</td><td>61</td><td>High</td></tr>
+</table>
+</div>
+<div class="card">
+<h2>Mission Data Core</h2>
+<p class="subtitle">
+          Unified intelligence model combining contracts, opportunities,
+          products, compliance, risk, and decisions.
+        </p>
+</div>
+</section>
+<section class="grid2">
+<div class="card">
+<h2>Top Enterprise Risks</h2>
+<div class="risk">
+<span class="dot red"></span>
+<span>Proposal support partner not selected</span>
+<strong style="color:var(--red)">CRITICAL</strong>
+</div>
+<div class="risk">
+<span class="dot orange"></span>
+<span>CMMC readiness gap</span>
+<strong style="color:var(--orange)">HIGH</strong>
+</div>
+<div class="risk">
+<span class="dot orange"></span>
+<span>Technical validation evidence incomplete</span>
+<strong style="color:var(--orange)">HIGH</strong>
+</div>
+</div>
+<div class="card">
+<h2>Mission Interpretation</h2>
+<p class="subtitle">
+          Klaritee has a strong opportunity pipeline and credible product surface area,
+          but mission health is constrained by decision latency, compliance readiness,
+          and proposal execution capacity.
+        </p>
+</div>
+</section>
+<section class="question">
+<div class="kicker">Today's Strategic Question</div>
+<h2>What single decision most increases mission success?</h2>
+<div class="reco">Recommended Focus: Proposal support partner selection.</div>
+</section>
+<div class="footer">Klaritee Executive Horizon · Strategic Intelligence Platform · v0.4.0-alpha</div>
+</main>
+</div>
+<script>
+function setMode(mode, btn) {
+  document.body.setAttribute("data-mode", mode);
+  document.querySelectorAll("button").forEach(button => button.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+
+const strategicMilestones = {
+  "Company Formation": { dependencies: [], unlocks: ["Concept Validation", "Product Prototype"], risk: "Low. Foundational milestone is complete.", assessment: "Established the company origin point and operating thesis." },
+  "Concept Validation": { dependencies: ["Company Formation"], unlocks: ["Product Prototype", "Government Strategy"], risk: "Low. Concept has been validated enough to proceed.", assessment: "Validated that the operating thesis had enough signal to justify product development." },
+  "Product Prototype": { dependencies: ["Concept Validation"], unlocks: ["Mission Control Prototype", "Executive Horizon Alpha"], risk: "Low-medium. Prototype maturity still requires validation evidence.", assessment: "Created the product foundation that enables executive visualization and customer validation." },
+  "Government Strategy": { dependencies: ["Concept Validation"], unlocks: ["Grant Expansion Strategy", "OASW-SOLIC Submission"], risk: "Medium. Strategy depends on opportunity selection and proposal capacity.", assessment: "Opened the federal and grant pathway as a strategic growth motion." },
+  "Mission Control Prototype": { dependencies: ["Product Prototype"], unlocks: ["Executive Horizon Alpha"], risk: "Low. Prototype validated the operating-picture concept.", assessment: "Proved that status, decisions, and risks could be packaged as an executive experience." },
+  "Executive Horizon Alpha": { dependencies: ["Product Prototype", "Mission Control Prototype", "Government Strategy"], unlocks: ["Airtable Data Layer", "Grant Expansion Strategy", "First Pilot Customer"], risk: "Low-medium. Alpha exists, but customer validation remains the key constraint.", assessment: "Represents the transition from concept validation into operational execution." },
+  "Airtable Data Layer": { dependencies: ["Executive Horizon Alpha"], unlocks: ["Grant Expansion Strategy", "First Pilot Customer"], risk: "Low. Data layer is established, but live integration remains future work.", assessment: "Creates the source of truth needed to convert Horizon from static visualization into operating system." },
+  "Grant Expansion Strategy": { dependencies: ["Executive Horizon Alpha", "Airtable Data Layer", "Government Strategy"], unlocks: ["OASW-SOLIC Submission", "SBIR Expansion", "First Federal Contract"], risk: "Medium-high. Proposal capacity and partner selection remain the key constraints.", assessment: "Positive trajectory, but success depends on converting grant strategy into repeatable execution." },
+  "First Pilot Customer": { dependencies: ["Executive Horizon Alpha", "Airtable Data Layer", "Grant Expansion Strategy"], unlocks: ["First Federal Contract", "Commercial Launch", "Strategic Investment"], risk: "Medium. Customer acquisition and validation evidence are the primary constraints.", assessment: "This is the strategic gateway between prototype credibility and market proof." },
+  "OASW-SOLIC Submission": { dependencies: ["Grant Expansion Strategy", "Government Strategy"], unlocks: ["SBIR Expansion"], risk: "Medium. Funding outcome is uncertain, but strategic exposure has value regardless.", assessment: "Creates market visibility and establishes a first defense-facing funding motion." },
+  "Proposal Partner Selected": { dependencies: ["Grant Expansion Strategy"], unlocks: ["SBIR Expansion", "First Federal Contract"], risk: "High. This is currently a major bottleneck for federal proposal velocity.", assessment: "Selecting the right proposal partner may be the highest-leverage near-term executive decision." },
+  "SBIR Expansion": { dependencies: ["OASW-SOLIC Submission", "Proposal Partner Selected", "Grant Expansion Strategy"], unlocks: ["First Federal Contract", "Strategic Investment"], risk: "Medium-high. Success requires repeatable grant qualification and submission capacity.", assessment: "Turns isolated grant activity into a repeatable funding engine." },
+  "First Federal Contract": { dependencies: ["First Pilot Customer", "Proposal Partner Selected", "SBIR Expansion"], unlocks: ["Commercial Launch", "Strategic Investment"], risk: "High. Depends on proof, proposal execution, and federal readiness.", assessment: "This is the transformational milestone that converts strategic interest into contracted market proof." },
+  "Commercial Launch": { dependencies: ["First Pilot Customer", "First Federal Contract"], unlocks: ["Strategic Investment"], risk: "Medium. Product packaging and customer proof determine launch quality.", assessment: "Converts validated product and early traction into a broader commercial motion." },
+  "Strategic Investment": { dependencies: ["First Federal Contract", "Commercial Launch"], unlocks: [], risk: "Medium-high. Investment readiness depends on revenue proof and market confidence.", assessment: "A stretch milestone enabled by customer traction, funding velocity, and federal credibility." }
+};
+
+function parsePercent(text) {
+  const match = String(text || '').match(/Confidence:\s*(\d+)%/i);
+  return match ? Number(match[1]) : 0;
+}
+
+function parseWeight(text) {
+  const match = String(text || '').match(/Weight:\s*(\d+)\/5/i);
+  return match ? Number(match[1]) : 3;
+}
+
+function normalizeTitle(text) {
+  return String(text || '').replace(/\s+/g, ' ').trim();
+}
+
+function selectMilestone(milestone) {
+  const title = normalizeTitle(milestone.querySelector('.detail-title')?.innerText || milestone.querySelector('.milestone-title')?.innerText);
+  const meta = normalizeTitle(milestone.querySelector('.detail-meta')?.innerText || '');
+  const narrative = normalizeTitle(milestone.querySelector('.detail-narrative')?.innerText || '');
+  const confidence = parsePercent(meta);
+  const weight = parseWeight(meta);
+  const intel = strategicMilestones[title] || { dependencies: [], unlocks: [], risk: 'Risk profile not yet modeled.', assessment: 'Executive assessment not yet modeled.' };
+
+  document.querySelectorAll('.milestone').forEach(item => {
+    item.classList.remove('selected', 'dependency-source', 'dependency-target', 'dimmed');
+  });
+
+  milestone.classList.add('selected');
+
+  document.querySelectorAll('.milestone').forEach(item => {
+    const itemTitle = normalizeTitle(item.querySelector('.detail-title')?.innerText || item.querySelector('.milestone-title')?.innerText);
+    if (intel.dependencies.includes(itemTitle)) item.classList.add('dependency-source');
+    if (intel.unlocks.includes(itemTitle)) item.classList.add('dependency-target');
+    if (item !== milestone && !intel.dependencies.includes(itemTitle) && !intel.unlocks.includes(itemTitle)) item.classList.add('dimmed');
+  });
+
+  document.getElementById('selected-title').innerText = title;
+  document.getElementById('selected-meta').innerText = meta;
+  document.getElementById('selected-weight').innerText = '★★★★★'.slice(0, weight) + '☆☆☆☆☆'.slice(0, 5 - weight);
+  document.getElementById('selected-confidence-label').innerText = confidence + '%';
+  document.getElementById('selected-confidence-bar').style.width = confidence + '%';
+  document.getElementById('selected-narrative').innerText = narrative;
+  document.getElementById('selected-risk').innerHTML = '<strong>Execution risk:</strong> ' + intel.risk;
+  document.getElementById('selected-assessment').innerHTML = '<strong>Outlook:</strong> ' + intel.assessment;
+
+  const depList = document.getElementById('selected-dependencies');
+  const unlockList = document.getElementById('selected-unlocks');
+  depList.innerHTML = (intel.dependencies.length ? intel.dependencies : ['No upstream dependency modeled']).map(item => `<li>${item}</li>`).join('');
+  unlockList.innerHTML = (intel.unlocks.length ? intel.unlocks : ['No downstream unlock modeled']).map(item => `<li>${item}</li>`).join('');
+}
+
+function initializeMilestoneIntelligence() {
+  const milestones = Array.from(document.querySelectorAll('.milestone'));
+  milestones.forEach(milestone => {
+    milestone.addEventListener('click', () => selectMilestone(milestone));
+    milestone.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        selectMilestone(milestone);
+      }
+    });
+  });
+
+  const defaultMilestone = milestones.find(item => normalizeTitle(item.querySelector('.detail-title')?.innerText) === 'Grant Expansion Strategy') || milestones.find(item => item.classList.contains('current')) || milestones[0];
+  if (defaultMilestone) selectMilestone(defaultMilestone);
+}
+
+document.addEventListener('DOMContentLoaded', initializeMilestoneIntelligence);
+
+</script>
+</body>
+</html>
