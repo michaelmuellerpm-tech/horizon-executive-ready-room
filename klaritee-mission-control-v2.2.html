@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Klaritee Mission Control v2.2</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #020509;
+  --panel: rgba(8, 14, 23, 0.92);
+  --panel-2: rgba(13, 22, 35, 0.96);
+  --border: rgba(96, 168, 255, 0.18);
+  --blue: #4fb7ff;
+  --orange: #ff6b32;
+  --red: #ff3f4f;
+  --yellow: #ffb020;
+  --green: #35d07f;
+  --text: #f7fbff;
+  --muted: #8fa0b6;
+}
+
+body {
+  background:
+    radial-gradient(circle at 55% 20%, rgba(28, 116, 181, 0.25), transparent 32%),
+    linear-gradient(180deg, #03060b 0%, #010308 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  background: rgba(2, 5, 9, 0.96);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
+}
+
+.logo-main {
+  font-size: 17px;
+  letter-spacing: 7px;
+  font-weight: 900;
+}
+
+.logo-sub {
+  color: var(--orange);
+  font-weight: 900;
+  margin-top: 8px;
+}
+
+.label {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin: 26px 0 10px;
+}
+
+.nav {
+  padding: 11px 12px;
+  border-radius: 10px;
+  margin-bottom: 7px;
+  display: flex;
+  justify-content: space-between;
+  color: #d5deea;
+  font-size: 13px;
+}
+
+.nav.active {
+  background: linear-gradient(90deg, rgba(255, 107, 50, 0.36), rgba(255, 107, 50, 0.08));
+  border: 1px solid rgba(255, 107, 50, 0.4);
+}
+
+.nav span {
+  font-weight: 800;
+}
+
+/* MAIN */
+
+.main {
+  padding: 16px;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.modebar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+button {
+  background: #101a29;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button.active {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.kicker {
+  color: var(--blue);
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #c6d1df;
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 360px 360px;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 12px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.card h2 {
+  color: var(--blue);
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.status-row {
+  margin-bottom: 10px;
+}
+
+.status-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), #ff9b65);
+}
+
+.visual {
+  min-height: 250px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.visual::before {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 183, 255, 0.22), transparent 60%);
+  filter: blur(4px);
+}
+
+.helix {
+  position: absolute;
+  width: 320px;
+  height: 120px;
+  border: 2px solid rgba(79, 183, 255, 0.45);
+  border-left: none;
+  border-right: none;
+  border-radius: 50%;
+  transform: rotate(-17deg);
+  box-shadow: 0 0 26px rgba(79, 183, 255, 0.38);
+}
+
+.helix.two {
+  width: 300px;
+  height: 108px;
+  transform: rotate(19deg);
+  opacity: 0.85;
+}
+
+.helix::before,
+.helix::after {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border-top: 1px dashed rgba(79, 183, 255, 0.45);
+  border-bottom: 1px dashed rgba(79, 183, 255, 0.45);
+  border-radius: 50%;
+}
+
+.cube {
+  width: 92px;
+  height: 92px;
+  background:
+    repeating-linear-gradient(90deg, rgba(79,183,255,.28) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(0deg, rgba(79,183,255,.18) 0 1px, transparent 1px 17px);
+  border: 1px solid rgba(79, 183, 255, 0.75);
+  box-shadow:
+    0 0 40px rgba(79, 183, 255, 0.65),
+    inset 0 0 25px rgba(79, 183, 255, 0.28);
+  transform: rotateX(58deg) rotateZ(45deg);
+  z-index: 2;
+}
+
+.cube::after {
+  content: "MISSION\A CUBE";
+  white-space: pre;
+  position: absolute;
+  inset: 0;
+  transform: rotateZ(-45deg) rotateX(-58deg);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 900;
+}
+
+.orbit {
+  position: absolute;
+  color: var(--blue);
+  background: rgba(5, 10, 18, 0.72);
+  border: 1px solid rgba(79, 183, 255, 0.2);
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 10px;
+}
+
+.o1 { top: 30px; left: 24px; }
+.o2 { top: 34px; right: 22px; }
+.o3 { bottom: 34px; left: 30px; }
+.o4 { bottom: 34px; right: 34px; }
+
+.health {
+  color: var(--orange);
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 0.95;
+}
+
+.decision {
+  background: rgba(16, 25, 40, 0.78);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 9px;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.warn {
+  color: var(--red);
+}
+
+.warn.orange {
+  color: var(--yellow);
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.pri {
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.pri.orange {
+  color: var(--yellow);
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  color: var(--muted);
+  font-size: 11px;
+  text-align: left;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+td {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+}
+
+.badge {
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 900;
+  background: rgba(53,208,127,0.15);
+  color: var(--green);
+}
+
+.badge.discovery {
+  background: rgba(255,176,32,0.15);
+  color: var(--yellow);
+}
+
+.risk {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.red { background: var(--red); }
+.orange { background: var(--orange); }
+.yellow { background: var(--yellow); }
+
+.question {
+  background:
+    radial-gradient(circle at 10% 50%, rgba(79,183,255,0.18), transparent 18%),
+    radial-gradient(circle at 90% 50%, rgba(79,183,255,0.18), transparent 18%),
+    var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+}
+
+.question h2 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.reco {
+  color: var(--orange);
+  font-size: 14px;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+/* LAPTOP MODE: balanced 100% laptop demo */
+body[data-mode="laptop"] .app {
+  grid-template-columns: 210px 1fr;
+}
+
+body[data-mode="laptop"] .main {
+  padding: 12px;
+}
+
+body[data-mode="laptop"] .hero {
+  grid-template-columns: 1fr 340px 340px;
+}
+
+body[data-mode="laptop"] .grid3,
+body[data-mode="laptop"] .grid2 {
+  display: none;
+}
+
+body[data-mode="laptop"] h1 {
+  font-size: 30px;
+}
+
+body[data-mode="laptop"] .visual {
+  min-height: 240px;
+}
+
+body[data-mode="laptop"] .question {
+  margin-top: 10px;
+}
+
+/* EXECUTIVE WALL: full command-center mode */
+body[data-mode="wall"] .app {
+  grid-template-columns: 270px 1fr;
+}
+
+body[data-mode="wall"] .main {
+  padding: 22px;
+}
+
+body[data-mode="wall"] .hero {
+  grid-template-columns: 1fr 520px 430px;
+}
+
+body[data-mode="wall"] .visual {
+  min-height: 360px;
+}
+
+body[data-mode="wall"] .helix {
+  width: 500px;
+  height: 205px;
+}
+
+body[data-mode="wall"] .helix.two {
+  width: 475px;
+  height: 185px;
+}
+
+body[data-mode="wall"] .cube {
+  width: 170px;
+  height: 170px;
+}
+
+body[data-mode="wall"] h1 {
+  font-size: 44px;
+}
+
+/* PRESENTATION MODE: clean boardroom slide */
+body[data-mode="presentation"] .sidebar {
+  display: none;
+}
+
+body[data-mode="presentation"] .app {
+  grid-template-columns: 1fr;
+}
+
+body[data-mode="presentation"] .main {
+  padding: 18px;
+}
+
+body[data-mode="presentation"] .topline,
+body[data-mode="presentation"] .modebar {
+  display: none;
+}
+
+body[data-mode="presentation"] .hero {
+  grid-template-columns: 0.9fr 1.15fr;
+  gap: 18px;
+  align-items: center;
+}
+
+body[data-mode="presentation"] .right-stack {
+  display: none;
+}
+
+body[data-mode="presentation"] .grid3,
+body[data-mode="presentation"] .grid2 {
+  display: none;
+}
+
+body[data-mode="presentation"] h1 {
+  font-size: 48px;
+}
+
+body[data-mode="presentation"] .subtitle {
+  font-size: 16px;
+  max-width: 700px;
+}
+
+body[data-mode="presentation"] .visual {
+  min-height: 370px;
+}
+
+body[data-mode="presentation"] .helix {
+  width: 470px;
+  height: 185px;
+}
+
+body[data-mode="presentation"] .helix.two {
+  width: 440px;
+  height: 165px;
+}
+
+body[data-mode="presentation"] .cube {
+  width: 145px;
+  height: 145px;
+}
+
+body[data-mode="presentation"] .question {
+  margin-top: 16px;
+  padding: 20px;
+}
+
+body[data-mode="presentation"] .question h2 {
+  font-size: 32px;
+}
+
+/* smaller screens */
+@media (max-width: 1200px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  body[data-mode="laptop"] .app,
+  body[data-mode="wall"] .app {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-mode="laptop"] .hero,
+  body[data-mode="wall"] .hero,
+  body[data-mode="presentation"] .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .visual {
+    min-height: 260px;
+  }
+}
+</style>
+</head>
+
+<body data-mode="laptop">
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="logo-main">KLARITEE</div>
+    <div class="logo-sub">MISSION CONTROL</div>
+
+    <div class="label">EXECUTIVE</div>
+    <div class="nav active">Executive Cockpit <span>76</span></div>
+    <div class="nav">Government Runbook <span>68</span></div>
+    <div class="nav">SBIR Pipeline <span>84</span></div>
+    <div class="nav">Product Portfolio <span>72</span></div>
+    <div class="nav">Risk Register <span>61</span></div>
+    <div class="nav">Decision Queue <span>58</span></div>
+
+    <div class="label">SYSTEM</div>
+    <div class="nav">Framework <span>v0.1</span></div>
+    <div class="nav">Klaritee Vertical <span>alpha</span></div>
+  </aside>
+
+  <main class="main">
+
+    <div class="topline">
+      <div>KLARITEE MISSION CONTROL · EXECUTIVE INTELLIGENCE ENGINE</div>
+      <div>Victor · Executive View</div>
+    </div>
+
+    <div class="modebar">
+      <button class="active" onclick="setMode('laptop', this)">Laptop Mode</button>
+      <button onclick="setMode('wall', this)">Executive Wall</button>
+      <button onclick="setMode('presentation', this)">Presentation</button>
+    </div>
+
+    <section class="hero">
+
+      <div>
+        <div class="kicker">KLARITEE MISSION CONTROL</div>
+        <h1>Executive Cockpit</h1>
+        <p class="subtitle">
+          Turning government opportunities, operational intelligence, product maturity,
+          risk posture, and executive decisions into mission-winning clarity.
+        </p>
+
+        <br />
+
+        <div class="card">
+          <h2>Mission Status</h2>
+
+          <div class="status-row">
+            <div class="status-top"><span>Government Readiness</span><strong>68</strong></div>
+            <div class="bar"><div class="fill" style="width:68%"></div></div>
+          </div>
+
+          <div class="status-row">
+            <div class="status-top"><span>Federal Pipeline</span><strong>84</strong></div>
+            <div class="bar"><div class="fill" style="width:84%"></div></div>
+          </div>
+
+          <div class="status-row">
+            <div class="status-top"><span>Product Portfolio</span><strong>72</strong></div>
+            <div class="bar"><div class="fill" style="width:72%"></div></div>
+          </div>
+
+          <div class="status-row">
+            <div class="status-top"><span>Risk Management</span><strong>61</strong></div>
+            <div class="bar"><div class="fill" style="width:61%"></div></div>
+          </div>
+
+          <div class="status-row">
+            <div class="status-top"><span>Executive Decisions</span><strong>58</strong></div>
+            <div class="bar"><div class="fill" style="width:58%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visual">
+        <div class="orbit o1">Government · 68</div>
+        <div class="orbit o2">Pipeline · 84</div>
+        <div class="orbit o3">Products · 72</div>
+        <div class="orbit o4">Risk · 61</div>
+        <div class="helix"></div>
+        <div class="helix two"></div>
+        <div class="cube"></div>
+      </div>
+
+      <div class="right-stack">
+        <div class="card">
+          <h2>Mission Health</h2>
+          <div class="health">76</div>
+          <p class="subtitle">Out of 100 · current executive operating score</p>
+        </div>
+
+        <br />
+
+        <div class="card">
+          <h2>Executive Decisions Required</h2>
+
+          <div class="decision">
+            <div class="warn">⚠</div>
+            <div>
+              <strong>Select Proposal Support Partner</strong>
+              <div class="meta">Impact: High · Window: 14 days</div>
+            </div>
+            <div class="pri">CRITICAL</div>
+          </div>
+
+          <div class="decision">
+            <div class="warn">⚠</div>
+            <div>
+              <strong>Prioritize Federal Pipeline</strong>
+              <div class="meta">Impact: High · Window: 7 days</div>
+            </div>
+            <div class="pri">CRITICAL</div>
+          </div>
+
+          <div class="decision">
+            <div class="warn orange">⚠</div>
+            <div>
+              <strong>CMMC Investment Strategy</strong>
+              <div class="meta">Impact: Medium · Window: 30 days</div>
+            </div>
+            <div class="pri orange">HIGH</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="grid3">
+      <div class="card">
+        <h2>Federal Pipeline</h2>
+        <table>
+          <tr><th>Opportunity</th><th>Score</th><th>Status</th></tr>
+          <tr><td>DLA SBIR</td><td>91</td><td><span class="badge">ACTIVE</span></td></tr>
+          <tr><td>Tradewinds</td><td>85</td><td><span class="badge">ACTIVE</span></td></tr>
+          <tr><td>Army AI2C</td><td>82</td><td><span class="badge">ACTIVE</span></td></tr>
+          <tr><td>ONI</td><td>61</td><td><span class="badge discovery">DISCOVERY</span></td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Product Portfolio</h2>
+        <table>
+          <tr><th>Product</th><th>Ready</th><th>Value</th></tr>
+          <tr><td>Contracts</td><td>90</td><td>High</td></tr>
+          <tr><td>Verify</td><td>88</td><td>High</td></tr>
+          <tr><td>Sentinel</td><td>65</td><td>Very High</td></tr>
+          <tr><td>Compliance</td><td>61</td><td>High</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Mission Data Core</h2>
+        <p class="subtitle">
+          Unified intelligence model combining contracts, opportunities,
+          products, compliance, risk, and decisions.
+        </p>
+      </div>
+    </section>
+
+    <section class="grid2">
+      <div class="card">
+        <h2>Top Enterprise Risks</h2>
+
+        <div class="risk">
+          <span class="dot red"></span>
+          <span>Proposal support partner not selected</span>
+          <strong style="color:var(--red)">CRITICAL</strong>
+        </div>
+
+        <div class="risk">
+          <span class="dot orange"></span>
+          <span>CMMC readiness gap</span>
+          <strong style="color:var(--orange)">HIGH</strong>
+        </div>
+
+        <div class="risk">
+          <span class="dot orange"></span>
+          <span>Technical validation evidence incomplete</span>
+          <strong style="color:var(--orange)">HIGH</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Mission Interpretation</h2>
+        <p class="subtitle">
+          Klaritee has a strong opportunity pipeline and credible product surface area,
+          but mission health is constrained by decision latency, compliance readiness,
+          and proposal execution capacity.
+        </p>
+      </div>
+    </section>
+
+    <section class="question">
+      <div class="kicker">TODAY'S MISSION QUESTION</div>
+      <h2>What single decision most increases mission success?</h2>
+      <div class="reco">Recommended Focus: Proposal support partner selection.</div>
+    </section>
+
+    <div class="footer">
+      MCK Enterprise · Klaritee Vertical · Mission Cube Prototype v0.2.2-alpha
+    </div>
+
+  </main>
+</div>
+
+<script>
+function setMode(mode, btn) {
+  document.body.setAttribute("data-mode", mode);
+  document.querySelectorAll("button").forEach(button => button.classList.remove("active"));
+  btn.classList.add("active");
+}
+</script>
+
+</body>
+</html>
