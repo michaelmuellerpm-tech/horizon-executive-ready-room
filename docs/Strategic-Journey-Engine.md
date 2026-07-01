@@ -58,11 +58,37 @@ FUTURE
 
 ## Strategic Journey Engine Status
 
-Version:
-1.0
+Strategic Journey Engine
+Mission
 
-Status:
-Feature Complete / Locked
+The Strategic Journey Engine provides executives with a visual representation of organizational progress through time.
 
-Date:
-July 2026
+Unlike traditional project timelines, SJE models:
+
+historical context
+current state
+strategic dependencies
+causal relationships
+future opportunity paths
+confidence projections
+executive decision requirements
+Core Principles
+Executives think in causality.
+Executives think in probability.
+Executives think in narratives.
+Past, present and future should exist simultaneously.
+Strategic Journey Engine Components
+Temporal Playback Engine
+Historical Narrative Engine
+Mission Health Through Time
+Future Confidence Envelope
+Strategic Causality Graph
+Executive Milestone Intelligence
+
+Version: 1.0
+Release: v0.4.3-alpha
+State: Feature Complete
+Date: July 2026
+
+STATUS: LOCKED
+VERSION: 1.0
