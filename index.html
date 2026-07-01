@@ -495,9 +495,20 @@ body[data-mode="presentation"] .main {
   padding: 18px;
 }
 
-body[data-mode="presentation"] .topline,
-body[data-mode="presentation"] .modebar {
+body[data-mode="presentation"] .topline {
   display: none;
+}
+
+body[data-mode="presentation"] .modebar {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 9999;
+  opacity: 0.25;
+}
+
+body[data-mode="presentation"] .modebar:hover {
+  opacity: 1;
 }
 
 body[data-mode="presentation"] .hero {
