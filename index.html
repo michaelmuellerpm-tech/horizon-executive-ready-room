@@ -416,6 +416,117 @@ td {
   margin-top: 8px;
 }
 
+
+/* STRATEGIC MILESTONE TIMELINE */
+
+.timeline-card {
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.timeline-card h2 {
+  margin-bottom: 6px;
+}
+
+.timeline-subtitle {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.timeline-container {
+  position: relative;
+  padding: 34px 10px 8px;
+}
+
+.timeline-now {
+  position: absolute;
+  top: 0;
+  left: 52%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--orange);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  z-index: 4;
+}
+
+.timeline-arrow {
+  margin-top: 3px;
+  font-size: 12px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 66px;
+  left: 28px;
+  right: 28px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(79,183,255,.65),
+    rgba(255,107,50,.75),
+    rgba(143,160,182,.28)
+  );
+  box-shadow: 0 0 16px rgba(79,183,255,.22);
+}
+
+.timeline-items {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  position: relative;
+}
+
+.milestone {
+  width: 92px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.marker {
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 9px;
+}
+
+.complete .marker {
+  color: var(--blue);
+  text-shadow: 0 0 14px rgba(79,183,255,.7);
+}
+
+.current .marker {
+  color: var(--orange);
+  text-shadow: 0 0 20px rgba(255,107,50,.85);
+  animation: pulseMarker 1.8s ease-in-out infinite;
+}
+
+.future .marker {
+  color: var(--muted);
+  opacity: .95;
+}
+
+.milestone-title {
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.milestone-date {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+@keyframes pulseMarker {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: .82; }
+}
+
 /* LAPTOP MODE: balanced 100% laptop demo */
 body[data-mode="laptop"] .app {
   grid-template-columns: 210px 1fr;
@@ -445,6 +556,33 @@ body[data-mode="laptop"] .visual {
 body[data-mode="laptop"] .question {
   margin-top: 10px;
 }
+
+body[data-mode="laptop"] .timeline-card {
+  padding: 11px;
+}
+
+body[data-mode="laptop"] .timeline-container {
+  padding: 30px 6px 6px;
+}
+
+body[data-mode="laptop"] .timeline-line {
+  top: 60px;
+  left: 20px;
+  right: 20px;
+}
+
+body[data-mode="laptop"] .marker {
+  font-size: 22px;
+}
+
+body[data-mode="laptop"] .milestone-title {
+  font-size: 9px;
+}
+
+body[data-mode="laptop"] .milestone-date {
+  font-size: 8px;
+}
+
 
 /* EXECUTIVE WALL: full command-center mode */
 body[data-mode="wall"] .app {
@@ -587,6 +725,49 @@ body[data-mode="presentation"] .question h2 {
   .visual {
     min-height: 260px;
   }
+
+  .timeline-card {
+    margin-top: 12px;
+  }
+
+  .timeline-container {
+    padding: 10px 0 4px;
+  }
+
+  .timeline-now,
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-items {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .milestone {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    text-align: left;
+  }
+
+  .marker {
+    margin-bottom: 0;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .milestone-title {
+    font-size: 12px;
+  }
+
+  .milestone-date {
+    margin-top: 0;
+    font-size: 10px;
+  }
+
 }
 </style>
 </head>
@@ -665,6 +846,68 @@ body[data-mode="presentation"] .question h2 {
             <div class="bar"><div class="fill" style="width:58%"></div></div>
           </div>
         </div>
+
+        <div class="card timeline-card">
+          <h2>Strategic Milestone Timeline</h2>
+          <p class="timeline-subtitle">Past, present, and future milestones shaping Klaritee's executive journey.</p>
+
+          <div class="timeline-container">
+
+            <div class="timeline-now">
+              <span>TODAY</span>
+              <div class="timeline-arrow">▼</div>
+            </div>
+
+            <div class="timeline-line"></div>
+
+            <div class="timeline-items">
+
+              <div class="milestone complete">
+                <div class="marker">●</div>
+                <div class="milestone-title">Company<br>Formation</div>
+                <div class="milestone-date">2025</div>
+              </div>
+
+              <div class="milestone complete">
+                <div class="marker">●</div>
+                <div class="milestone-title">Product<br>Prototype</div>
+                <div class="milestone-date">Q1 2026</div>
+              </div>
+
+              <div class="milestone complete">
+                <div class="marker">●</div>
+                <div class="milestone-title">Executive<br>Horizon Alpha</div>
+                <div class="milestone-date">Q2 2026</div>
+              </div>
+
+              <div class="milestone current">
+                <div class="marker">◆</div>
+                <div class="milestone-title">First Pilot<br>Customer</div>
+                <div class="milestone-date">NOW</div>
+              </div>
+
+              <div class="milestone future">
+                <div class="marker">○</div>
+                <div class="milestone-title">OASW-SOLIC<br>Submission</div>
+                <div class="milestone-date">Q3 2026</div>
+              </div>
+
+              <div class="milestone future">
+                <div class="marker">○</div>
+                <div class="milestone-title">First Federal<br>Contract</div>
+                <div class="milestone-date">Q4 2026</div>
+              </div>
+
+              <div class="milestone future">
+                <div class="marker">○</div>
+                <div class="milestone-title">Commercial<br>Scale</div>
+                <div class="milestone-date">2027</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="visual">
